@@ -22,28 +22,24 @@ public class ContextMenuController {
     public void createNewFile() {
         Icon icon = new DocumentIcon();
         Image image = new Image(getClass().getResource("/com/gummybear/images/document-icon.png").toExternalForm());
-        icon.setIconImage(new ImageView(image));
+        icon.getIconImage().setImage(image);
         icon.getIconImage().getStyleClass().add("icon");
 
         Desktop desktop = Desktop.getInstance();
         desktop.getIconArrayList().add(icon);
         desktop.render();
-
-        System.out.println("[INFO] Created New File");
     }
 
     @FXML
     public void createNewFolder() {
         Icon icon = new FolderIcon();
         Image image = new Image(getClass().getResource("/com/gummybear/images/folder-icon.png").toExternalForm());
-        icon.setIconImage(new ImageView(image));
+        icon.getIconImage().setImage(image);
         icon.getIconImage().getStyleClass().add("icon");
 
         Desktop desktop = Desktop.getInstance();
         desktop.getIconArrayList().add(icon);
         desktop.render();
-
-        System.out.println("[INFO] Created New Folder");
     }
 
 }

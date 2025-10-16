@@ -14,6 +14,8 @@ import java.util.Objects;
 @Data
 public class Desktop {
 
+    private int nexID = 0;
+
     private static Desktop currentDesktopInstance;
     private Desktop () {}
     public static Desktop getInstance() {
@@ -57,24 +59,7 @@ public class Desktop {
             imageView.setFitHeight(size);
             imageView.setFitWidth(size);
 
-            final double[] dragDelta = new double[2];
-            imageView.setOnMousePressed(event -> {
-                dragDelta[0] = event.getSceneX() - imageView.getLayoutX();
-                dragDelta[1] = event.getSceneY() - imageView.getLayoutY();
-            });
-            imageView.setOnMouseDragged(event -> {
-                imageView.setLayoutX(event.getSceneX() - dragDelta[0]);
-                imageView.setLayoutY(event.getSceneY() - dragDelta[1]);
-            });
-            imageView.setOnMouseReleased(event -> {
-                double snappedX = desktopPadding + Math.round((imageView.getLayoutX() - desktopPadding) / size) * size;
-                double snappedY = desktopPadding + Math.round((imageView.getLayoutY() - desktopPadding) / size) * size;
-                imageView.setLayoutX(snappedX);
-                imageView.setLayoutY(snappedY);
-                //System.out.println("Snapped to: " + snappedX + " " + snappedY);
-            });
-
-            System.out.println(initialX);
+            //System.out.println(initialX);
             desktopPane.getChildren().add(icon.getIconImage());
             initialX += size;
 
