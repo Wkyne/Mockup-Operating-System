@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gummybear.AppController">
    <center>
-      <Pane fx:id="desktopPane" prefHeight="300.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="desktopPane" prefHeight="300.0" prefWidth="300.0" styleClass="desktopPane" stylesheets="@style/desktop.css" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin></Pane>
    </center>
    <bottom>
       <HBox prefHeight="40.0" style="-fx-background-color: rgba(0, 61, 122, 0.5);" BorderPane.alignment="CENTER" />

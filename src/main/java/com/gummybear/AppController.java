@@ -9,18 +9,21 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class AppController {
-
-    public static Desktop desktop = new Desktop();
 
     @FXML
     Pane desktopPane;
 
+    private final Desktop desktop = Desktop.getInstance();
+
     public void initialize() {
 
+        desktop.setDesktopPane(desktopPane);
+
         Image backgroundImage = new Image(
-                getClass().getResource("/com/gummybear/images/desktop-background1.jpg").toExternalForm()
+                Objects.requireNonNull(getClass().getResource("/com/gummybear/images/desktop-background1.jpg")).toExternalForm()
         );
 
         // Create a BackgroundImage object
