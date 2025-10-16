@@ -5,4 +5,6 @@ module com.gummybear {
 
     opens com.gummybear to javafx.fxml;
     exports com.gummybear;
+    exports com.gummybear.desktop;
+    exports com.gummybear.desktop.icon;
 }

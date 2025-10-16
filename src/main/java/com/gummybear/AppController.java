@@ -1,13 +1,21 @@
 package com.gummybear;
 
+import com.gummybear.desktop.Desktop;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
+
+import java.io.IOException;
 
 public class AppController {
 
+    public static Desktop desktop = new Desktop();
+
     @FXML
-    Pane desktop;
+    Pane desktopPane;
 
     public void initialize() {
 
@@ -32,7 +40,28 @@ public class AppController {
         );
 
         // Set the background on the Pane
-        desktop.setBackground(new Background(bgImage));
+        desktopPane.setBackground(new Background(bgImage));
+
+        try {
+            FXMLLoader contextMenuLoader = new FXMLLoader(getClass().getResource("context-menu.fxml"));
+            Parent contextMenuUI = contextMenuLoader.load();
+
+            desktop.getContextMenu().setMenuUI((VBox) contextMenuUI);
+            desktopPane.getChildren().add(contextMenuUI);
+            contextMenuUI.setVisible(false);
+
+            desktopPane.setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.SECONDARY) { // right-click
+                    contextMenuUI.setLayoutX(event.getX());
+                    contextMenuUI.setLayoutY(event.getY());
+                    contextMenuUI.setVisible(true);
+                } else { // hide on any other click
+                    contextMenuUI.setVisible(false);
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
