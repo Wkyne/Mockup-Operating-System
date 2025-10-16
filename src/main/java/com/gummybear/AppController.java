@@ -54,10 +54,11 @@ public class AppController {
             contextMenuUI.setVisible(false);
 
             desktopPane.setOnMouseClicked(event -> {
-                if (event.getButton() == MouseButton.SECONDARY) { // right-click
+                if (event.getButton() == MouseButton.SECONDARY) {
                     contextMenuUI.setLayoutX(event.getX());
                     contextMenuUI.setLayoutY(event.getY());
                     contextMenuUI.setVisible(true);
+                    contextMenuUI.toFront();
                 } else { // hide on any other click
                     contextMenuUI.setVisible(false);
                 }
