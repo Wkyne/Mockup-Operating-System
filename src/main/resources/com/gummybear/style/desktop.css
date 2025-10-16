@@ -1,0 +1,7 @@
+.desktopPane {
+    -fx-padding: 10;
+}
+
+.icon {
+    -fx-cursor: hand;
+}
