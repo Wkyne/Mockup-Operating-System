@@ -123,12 +123,12 @@ public class AppController {
                     ));
                     desktop.getSelectionBox().getStyleClass().add("selection-box");
                     desktopPane.getChildren().add(desktop.getSelectionBox());
-                    System.out.println("[INFO] Selection Box Origin=(" +
-                            desktop.getSelectionBoxOrigin().getX() + ", " +
-                            desktop.getSelectionBoxOrigin().getY() + ")" +
-                            " End=(" + desktop.getSelectionBoxOrigin().getX() + ", " +
-                            desktop.getSelectionBoxOrigin().getY() + ")"
-                    );
+//                    System.out.println("[INFO] Selection Box Origin=(" +
+//                            desktop.getSelectionBoxOrigin().getX() + ", " +
+//                            desktop.getSelectionBoxOrigin().getY() + ")" +
+//                            " End=(" + desktop.getSelectionBoxOrigin().getX() + ", " +
+//                            desktop.getSelectionBoxOrigin().getY() + ")"
+//                    );
                 }
             }
         });
@@ -146,14 +146,31 @@ public class AppController {
                 boolean selectionBoxExists = desktopPane.getChildren().contains(desktop.getSelectionBox());
                 if (selectionBoxExists) {
                     desktop.setSelectionBoxEnd(new Point2D(event.getSceneX(), event.getSceneY()));
-                    desktop.getSelectionBox().setWidth(desktop.getSelectionBoxEnd().getX() - desktop.getSelectionBoxOrigin().getX());
-                    desktop.getSelectionBox().setHeight(desktop.getSelectionBoxEnd().getY() - desktop.getSelectionBoxOrigin().getY());
-                    System.out.println("[INFO] Selection Box Origin=(" +
-                            desktop.getSelectionBoxOrigin().getX() + ", " +
-                            desktop.getSelectionBoxOrigin().getY() + ")" +
-                            " End=(" + desktop.getSelectionBoxEnd().getX() + ", " +
-                            desktop.getSelectionBoxEnd().getY() + ")"
-                    );
+                    Point2D origin = desktop.getSelectionBoxOrigin();
+                    Point2D end = desktop.getSelectionBoxEnd();
+                    double relativeX = end.getX() - origin.getX();
+                    double relativeY = end.getY() - origin.getY();
+                    if (relativeX >= 0) {
+                        desktop.getSelectionBox().setX(origin.getX());
+                        desktop.getSelectionBox().setWidth(relativeX);
+                    } else {
+                        desktop.getSelectionBox().setX(end.getX());
+                        desktop.getSelectionBox().setWidth(Math.abs(relativeX));
+                    }
+                    if (relativeY >= 0) {
+                        desktop.getSelectionBox().setY(origin.getY());
+                        desktop.getSelectionBox().setHeight(relativeY);
+                    } else {
+                        desktop.getSelectionBox().setY(end.getY());
+                        desktop.getSelectionBox().setHeight(Math.abs(relativeY));
+                    }
+
+//                    System.out.println("[INFO] Selection Box Origin=(" +
+//                            desktop.getSelectionBoxOrigin().getX() + ", " +
+//                            desktop.getSelectionBoxOrigin().getY() + ")" +
+//                            " End=(" + desktop.getSelectionBoxEnd().getX() + ", " +
+//                            desktop.getSelectionBoxEnd().getY() + ")"
+//                    );
                     Bounds selectionBoxBounds = desktop.getSelectionBox().localToScene(desktop.getSelectionBox().getBoundsInLocal());
                     for (Icon icon : desktop.getIconArrayList()) {
                         Bounds iconBounds = icon.getIconVBox().localToScene(icon.getIconVBox().getBoundsInLocal());
