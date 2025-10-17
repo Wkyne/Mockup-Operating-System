@@ -5,3 +5,18 @@
 .icon {
     -fx-cursor: hand;
 }
+
+.icon-selected {
+    -fx-background-color: rgba(205, 205, 205, 0.35);
+}
+
+.icon:hover {
+    -fx-background-color: rgba(205, 205, 205, 0.35);
+}
+
+.selection-box {
+    -fx-fill: rgba(22, 99, 224, 0.6);
+    -fx-stroke: rgba(93, 155, 255, 0.05);
+    -fx-stroke-width: 2;
+}
+

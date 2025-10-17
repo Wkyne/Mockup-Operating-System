@@ -2,6 +2,8 @@ module com.gummybear {
     requires javafx.controls;
     requires javafx.fxml;
     requires static lombok;
+    requires java.desktop;
+    requires javafx.graphics;
 
     opens com.gummybear to javafx.fxml;
     exports com.gummybear;
