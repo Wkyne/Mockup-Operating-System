@@ -7,8 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import lombok.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Data
@@ -30,6 +32,11 @@ public class Desktop {
     private Pane desktopPane;
     private int desktopWidth, desktopHeight;
 
+    private ArrayList<Icon> selectedIconsArrayList = new ArrayList<>();
+    private ArrayList<Icon> selectedIconBuffer = new ArrayList<>();
+    Point2D selectionBoxOrigin, selectionBoxEnd;
+    private Rectangle selectionBox;
+
     public void setDesktopPane(Pane pane) {
         desktopPane = pane;
         desktopPane.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -48,6 +55,14 @@ public class Desktop {
         int initialY = desktopPadding;
         for (Icon icon : iconArrayList) {
             VBox iconGroup = icon.getIconVBox();
+
+            if (selectedIconsArrayList.contains(icon)) {
+                iconGroup.getStyleClass().add("icon-selected");
+            } else {
+                try {
+                    iconGroup.getStyleClass().remove("icon-selected");
+                } catch (Exception ignored) {}
+            }
 
             desktopPane.getChildren().remove(iconGroup);
 

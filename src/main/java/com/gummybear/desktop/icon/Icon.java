@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 import javax.swing.*;
 
@@ -24,9 +25,12 @@ public class Icon {
     ImageView iconImage;
     VBox iconVBox;
 
+    int size;
+    final double[] dragDelta = new double[2];
+
     public Icon () {
         Desktop d = Desktop.getInstance();
-        int size = d.getDesktopWidth() / d.getIconSize().getSize();
+        size = d.getDesktopWidth() / d.getIconSize().getSize();
 
         id = d.getNexID();
         d.setNexID(id+1);
@@ -39,23 +43,22 @@ public class Icon {
         nameLabel.setTextFill(Color.WHITE);
         nameLabel.setAlignment(Pos.CENTER);
 
-        final double[] dragDelta = new double[2];
-        iconVBox.setOnMousePressed(event -> {
-            dragDelta[0] = event.getSceneX() - iconVBox.getLayoutX();
-            dragDelta[1] = event.getSceneY() - iconVBox.getLayoutY();
-        });
-        iconVBox.setOnMouseDragged(event -> {
-            iconVBox.setLayoutX(event.getSceneX() - dragDelta[0]);
-            iconVBox.setLayoutY(event.getSceneY() - dragDelta[1]);
-        });
-        iconVBox.setOnMouseReleased(event -> {
-            int offsetY = 20;
-            double snappedX = d.getDesktopPadding() + Math.round((iconVBox.getLayoutX() - d.getDesktopPadding()) / size) * size;
-            double snappedY = d.getDesktopPadding() + Math.round((iconVBox.getLayoutY() - d.getDesktopPadding()) / (size+offsetY)) * (size+offsetY);
-            iconVBox.setLayoutX(snappedX);
-            iconVBox.setLayoutY(snappedY);
-            System.out.println("[INFO] Icon" + id + " Snapped To: X=" + snappedX + " Y=" + snappedY);
-        });
+//        iconVBox.setOnMousePressed(event -> {
+//            dragDelta[0] = event.getSceneX() - iconVBox.getLayoutX();
+//            dragDelta[1] = event.getSceneY() - iconVBox.getLayoutY();
+//        });
+//        iconVBox.setOnMouseDragged(event -> {
+//            iconVBox.setLayoutX(event.getSceneX() - dragDelta[0]);
+//            iconVBox.setLayoutY(event.getSceneY() - dragDelta[1]);
+//        });
+//        iconVBox.setOnMouseReleased(event -> {
+//            int offsetY = 20;
+//            double snappedX = d.getDesktopPadding() + Math.round((iconVBox.getLayoutX() - d.getDesktopPadding()) / size) * size;
+//            double snappedY = d.getDesktopPadding() + Math.round((iconVBox.getLayoutY() - d.getDesktopPadding()) / (size+offsetY)) * (size+offsetY);
+//            iconVBox.setLayoutX(snappedX);
+//            iconVBox.setLayoutY(snappedY);
+//            System.out.println("[INFO] Icon" + id + " Snapped To: X=" + snappedX + " Y=" + snappedY);
+//        });
     }
 
 }
