@@ -23,7 +23,7 @@ public class ContextMenuController {
         Icon icon = new DocumentIcon();
         Image image = new Image(getClass().getResource("/com/gummybear/images/document-icon.png").toExternalForm());
         icon.getIconImage().setImage(image);
-        icon.getIconImage().getStyleClass().add("icon");
+        icon.getIconVBox().getStyleClass().add("icon");
 
         Desktop desktop = Desktop.getInstance();
         desktop.getIconArrayList().add(icon);

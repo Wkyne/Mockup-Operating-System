@@ -5,3 +5,7 @@
 .icon {
     -fx-cursor: hand;
 }
+
+.icon:hover {
+    -fx-background-color: rgba(205, 205, 205, 0.35);
+}
