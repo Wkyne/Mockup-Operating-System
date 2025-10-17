@@ -3,9 +3,9 @@ package com.gummybear.desktop;
 import com.gummybear.desktop.icon.Icon;
 import com.gummybear.desktop.icon.IconSize;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -21,8 +21,34 @@ public class Desktop {
     public static Desktop getInstance() {
         if (currentDesktopInstance == null) {
             currentDesktopInstance = new Desktop();
+            currentDesktopInstance.addBackground("desktop-background1.jpg");
+            currentDesktopInstance.addBackground("desktop-background2.png");
+            currentDesktopInstance.addBackground("desktop-background3.jpg");
         }
         return currentDesktopInstance;
+    }
+
+    private static ArrayList<Image> bgArr = new ArrayList<>();
+
+    BackgroundSize bgSize = new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true); // 1 2 WH Auto && 3 4 Not Relative to Pane, 5 Preserve Aspect Ratio
+    private static int currIndex = 0;
+
+    public void setBackground(){
+        BackgroundImage bgImage = new BackgroundImage(
+                bgArr.get(currIndex),
+                BackgroundRepeat.NO_REPEAT,  // No repeat horizontally
+                BackgroundRepeat.NO_REPEAT,  // No repeat vertically
+                BackgroundPosition.CENTER,   // Center the image
+                bgSize
+        );
+        currIndex = (currIndex+1)%bgArr.size();
+        desktopPane.setBackground(new Background(bgImage));
+    }
+
+    public void addBackground(String filename){ //Assert String filename in bg folder
+        bgArr.add(new Image(
+            Objects.requireNonNull(Desktop.class.getResource("/com/gummybear/images/backgrounds/"+filename).toExternalForm()))
+        );
     }
 
     private ContextMenu contextMenu = new ContextMenu();
