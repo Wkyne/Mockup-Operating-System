@@ -103,6 +103,7 @@ public class Desktop {
             ImageView imageView = icon.getIconImage();
             Label nameLabel = icon.getNameLabel();
             int size = desktopWidth / iconSize.getSize();
+            icon.setSize(size);
             imageView.setFitHeight(size);
             imageView.setFitWidth(size);
             nameLabel.setPrefWidth(size);
@@ -111,7 +112,7 @@ public class Desktop {
             initialX += size;
 
             int offsetY = 20;
-            if (initialX+size >= desktopWidth) {
+            if (initialX+size-desktopPadding > desktopWidth) {
                 initialX = desktopPadding;
                 initialY += size + offsetY;
             }

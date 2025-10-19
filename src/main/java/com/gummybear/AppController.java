@@ -23,7 +23,7 @@ public class AppController {
     @FXML
     Pane desktopPane;
 
-    private final Desktop desktop = Desktop.getInstance();
+    private Desktop desktop = Desktop.getInstance();
 
     public void initialize() {
 
@@ -175,11 +175,14 @@ public class AppController {
 
 
         desktopPane.setOnMouseReleased(event -> {
+            desktop = Desktop.getInstance();
+
             desktop.getSelectedIconsArrayList().addAll(desktop.getSelectedIconBuffer());
             desktop.getSelectedIconBuffer().clear();
 
             for (Icon icon : desktop.getSelectedIconsArrayList()) {
                 int offsetY = 20;
+
                 double snappedX = desktop.getDesktopPadding() + Math.round((icon.getIconVBox().getLayoutX() - desktop.getDesktopPadding()) / icon.getSize()) * icon.getSize();
                 double snappedY = desktop.getDesktopPadding() + Math.round((icon.getIconVBox().getLayoutY() - desktop.getDesktopPadding()) / (icon.getSize()+offsetY)) * (icon.getSize()+offsetY);
                 icon.getIconVBox().setLayoutX(snappedX);

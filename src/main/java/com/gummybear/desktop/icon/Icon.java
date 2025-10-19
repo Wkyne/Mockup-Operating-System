@@ -30,7 +30,7 @@ public class Icon {
 
     public Icon () {
         Desktop d = Desktop.getInstance();
-        size = d.getDesktopWidth() / d.getIconSize().getSize();
+        //size = d.getDesktopWidth() / d.getIconSize().getSize();
 
         id = d.getNexID();
         d.setNexID(id+1);

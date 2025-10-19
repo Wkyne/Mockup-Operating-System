@@ -4,6 +4,7 @@ import com.gummybear.desktop.Desktop;
 import com.gummybear.desktop.icon.FileIcon;
 import com.gummybear.desktop.icon.FolderIcon;
 import com.gummybear.desktop.icon.Icon;
+import com.gummybear.desktop.icon.IconSize;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -45,5 +46,27 @@ public class ContextMenuController {
     public void changeBackground(){
         Desktop desktop = Desktop.getInstance();
         desktop.setBackground();
+    }
+
+    @FXML
+    public void changeToSmallIcons() {
+        Desktop desktop = Desktop.getInstance();
+        desktop.setIconSize(IconSize.SMALL);
+        desktop.render();
+    }
+
+    @FXML
+    public void changeToMediumIcons() {
+        Desktop desktop = Desktop.getInstance();
+        desktop.setIconSize(IconSize.MEDIUM);
+        desktop.render();
+
+    }
+
+    @FXML
+    public void changeToLargeIcons() {
+        Desktop desktop = Desktop.getInstance();
+        desktop.setIconSize(IconSize.LARGE);
+        desktop.render();
     }
 }
