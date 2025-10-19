@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="menuRoot" prefWidth="150.0" styleClass="context-menu" stylesheets="@style/context-menu.css" visible="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gummybear.ContextMenuController">
+<VBox fx:id="contextMenuRoot" prefWidth="150.0" styleClass="context-menu" stylesheets="@style/context-menu.css" visible="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gummybear.ContextMenuController">
    <Label maxWidth="1.7976931348623157E308" onMouseClicked="#createNewFile" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="New File">
       <padding>
          <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
@@ -17,16 +17,16 @@
          <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
       </padding></Label>
    <Separator prefWidth="200.0" styleClass="context-menu-separator" stylesheets="@style/context-menu.css" />
-    <Label maxWidth="1.7976931348623157E308" onMousePressed="#changeToSmallIcons" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Small Icons">
+    <Label maxWidth="1.7976931348623157E308" onMouseClicked="#changeToSmallIcons" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Small Icons">
       <padding>
          <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
       </padding></Label>
-   <Label maxWidth="1.7976931348623157E308" onMousePressed="#changeToMediumIcons" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Medium Icons">
+   <Label maxWidth="1.7976931348623157E308" onMouseClicked="#changeToMediumIcons" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Medium Icons">
       <padding>
          <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
       </padding>
    </Label>
-   <Label maxWidth="1.7976931348623157E308" onMousePressed="#changeToLargeIcons" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Large Icons">
+   <Label maxWidth="1.7976931348623157E308" onMouseClicked="#changeToLargeIcons" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Large Icons">
       <padding>
          <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
       </padding>
@@ -34,6 +34,11 @@
    <Separator prefWidth="200.0" styleClass="context-menu-separator" stylesheets="@style/context-menu.css" />
       <!-- onMouseClicked Temporary Change Bg -->
     <Label maxWidth="1.7976931348623157E308" onMouseClicked="#changeBackground" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Personalize">
+      <padding>
+         <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+      </padding>
+   </Label>
+   <Label maxWidth="1.7976931348623157E308" onMouseClicked="#deleteIcon" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Delete">
       <padding>
          <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
       </padding>

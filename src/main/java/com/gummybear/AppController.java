@@ -44,12 +44,14 @@ public class AppController {
 
         desktopPane.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
+                contextMenuUI.setVisible(true);
                 contextMenuUI.setLayoutX(event.getX());
                 contextMenuUI.setLayoutY(event.getY());
-                contextMenuUI.setVisible(true);
                 contextMenuUI.toFront();
-            } else { // hide on any other click
+            } else {
                 contextMenuUI.setVisible(false);
+                contextMenuUI.setLayoutX(99999);
+                contextMenuUI.setLayoutY(99999);
             }
         });
 
@@ -71,10 +73,12 @@ public class AppController {
 
             boolean hoveringOnIcon = false;
             if (!hoveringOnSelectedIcon) {
-                for (Icon icon : desktop.getSelectedIconsArrayList()) {
-                    icon.getIconVBox().getStyleClass().remove("icon-selected");
+                if (!mouseInsideContextMenu) {
+                    for (Icon icon : desktop.getSelectedIconsArrayList()) {
+                        icon.getIconVBox().getStyleClass().remove("icon-selected");
+                    }
+                    desktop.getSelectedIconsArrayList().clear();
                 }
-                desktop.getSelectedIconsArrayList().clear();
 
                 for (Icon icon : desktop.getIconArrayList()) {
                     Bounds vboxBounds = icon.getIconVBox().localToScene(icon.getIconVBox().getBoundsInLocal());
@@ -111,11 +115,16 @@ public class AppController {
 //                    );
                 }
             }
+
         });
 
 
 
         desktopPane.setOnMouseDragged(event -> {
+//            contextMenuUI.setVisible(false);
+//            contextMenuUI.setLayoutX(99999);
+//            contextMenuUI.setLayoutY(99999);
+
             for (Icon icon : desktop.getSelectedIconsArrayList()) {
                 icon.getIconVBox().setLayoutX(event.getSceneX() - icon.getDragDelta()[0]);
                 icon.getIconVBox().setLayoutY(event.getSceneY() - icon.getDragDelta()[1]);
@@ -190,12 +199,15 @@ public class AppController {
                 System.out.println("[INFO] Icon" + icon.getId() + " Snapped To: X=" + snappedX + " Y=" + snappedY);
             }
 
-
             boolean selectionBoxExists = desktopPane.getChildren().contains(desktop.getSelectionBox());
             if (selectionBoxExists) {
                 desktopPane.getChildren().remove(desktop.getSelectionBox());
                 desktop.setSelectionBox(null);
             }
+
+            contextMenuUI.setVisible(false);
+            contextMenuUI.setLayoutX(99999);
+            contextMenuUI.setLayoutY(99999);
         });
 
     }

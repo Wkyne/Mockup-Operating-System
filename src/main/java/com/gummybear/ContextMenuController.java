@@ -9,8 +9,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
+
+import java.util.Objects;
 
 @Getter
 public class ContextMenuController {
@@ -21,7 +24,7 @@ public class ContextMenuController {
     @FXML
     public void createNewFile() {
         Icon icon = new FileIcon();
-        Image image = new Image(getClass().getResource("/com/gummybear/images/document-icon.png").toExternalForm());
+        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/document-icon.png")).toExternalForm());
         icon.getIconImage().setImage(image);
         icon.getIconVBox().getStyleClass().add("icon");
 
@@ -33,7 +36,7 @@ public class ContextMenuController {
     @FXML
     public void createNewFolder() {
         Icon icon = new FolderIcon();
-        Image image = new Image(getClass().getResource("/com/gummybear/images/folder-icon.png").toExternalForm());
+        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/folder-icon.png")).toExternalForm());
         icon.getIconImage().setImage(image);
         icon.getIconImage().getStyleClass().add("icon");
 
@@ -46,6 +49,8 @@ public class ContextMenuController {
     public void changeBackground(){
         Desktop desktop = Desktop.getInstance();
         desktop.setBackground();
+
+        System.out.println("[INFO] Changed Background Image");
     }
 
     @FXML
@@ -53,6 +58,8 @@ public class ContextMenuController {
         Desktop desktop = Desktop.getInstance();
         desktop.setIconSize(IconSize.SMALL);
         desktop.render();
+
+        System.out.println("[INFO] Changed Icon Size to SMALL");
     }
 
     @FXML
@@ -61,6 +68,7 @@ public class ContextMenuController {
         desktop.setIconSize(IconSize.MEDIUM);
         desktop.render();
 
+        System.out.println("[INFO] Changed Icon Size to MEDIUM");
     }
 
     @FXML
@@ -68,5 +76,22 @@ public class ContextMenuController {
         Desktop desktop = Desktop.getInstance();
         desktop.setIconSize(IconSize.LARGE);
         desktop.render();
+
+        System.out.println("[INFO] Changed Icon Size to LARGE");
+    }
+
+    @FXML
+    public void deleteIcon() {
+        Desktop desktop = Desktop.getInstance();
+        if (!desktop.getSelectedIconsArrayList().isEmpty()) {
+            System.out.println("[INFO] Deleted Icons:");
+            for (Icon icon : desktop.getSelectedIconsArrayList()) {
+                System.out.println("[INFO] " + icon.toString());
+            }
+
+            Pane desktopPane = (Pane) contextMenuRoot.getParent();
+            desktopPane.getChildren().removeAll(desktop.getSelectedIconsArrayList().stream().map(Icon::getIconVBox).toList());
+            desktop.getIconArrayList().removeAll(desktop.getSelectedIconsArrayList());
+        }
     }
 }
