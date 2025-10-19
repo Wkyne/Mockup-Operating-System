@@ -1,0 +1,22 @@
+package com.gummybear.desktop;
+
+
+public class OpenedFolder {
+
+    private String folderPath;
+    private VBox folderView;
+
+    public OpenedFolder(String folderPath, VBox folderView) {
+        this.folderPath = folderPath;
+        this.folderView = folderView;
+    }
+
+    public String getFolderPath() {
+        return folderPath;
+    }
+
+    public VBox getFolderView() {
+        return folderView;
+    }
+
+}
