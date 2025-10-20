@@ -1,18 +1,16 @@
 package com.gummybear.desktop.icon;
 
 import com.gummybear.desktop.Desktop;
+import com.gummybear.desktop.window.Window;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-
-import javax.swing.*;
 
 @AllArgsConstructor
 @Data
@@ -20,10 +18,12 @@ public class Icon {
 
     int id;
     String name;
-    Label nameLabel;
     Point2D position;
+    Label nameLabel;
     ImageView iconImage;
     VBox iconVBox;
+
+    Window window;
 
     int size;
     final double[] dragDelta = new double[2];
@@ -32,8 +32,8 @@ public class Icon {
         Desktop d = Desktop.getInstance();
         //size = d.getDesktopWidth() / d.getIconSize().getSize();
 
-        id = d.getNexID();
-        d.setNexID(id+1);
+        id = d.getNextIconID();
+        d.setNextIconID(id+1);
 
         position = new Point2D(0,0);
         iconImage = new ImageView();
@@ -59,6 +59,7 @@ public class Icon {
 //            iconVBox.setLayoutY(snappedY);
 //            System.out.println("[INFO] Icon" + id + " Snapped To: X=" + snappedX + " Y=" + snappedY);
 //        });
+        
     }
 
 }

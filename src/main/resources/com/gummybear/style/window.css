@@ -1,0 +1,93 @@
+/* ========== ROOT WINDOW ========== */
+.root {
+    -fx-font-family: "Segoe UI", "Inter", "Arial";
+    -fx-font-size: 13px;
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: white;
+}
+
+/* ========== TITLE BAR AREA ========== */
+.title-bar {
+    -fx-background-color: #2b2b2b;
+    -fx-background-radius: 5 5 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 2);
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* ========== WINDOW TITLE LABEL ========== */
+.window-title-label {
+    -fx-text-fill: #f0f0f0;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 0 16 0 16;
+}
+
+/* ========== WINDOW CONTROL BUTTONS ========== */
+.window-control-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 12pt;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+    -fx-pref-height: 25px;
+    -fx-pref-width: 30px;
+    -fx-padding: 0;
+    -fx-transition: background-color 0.2s ease-in-out;
+}
+
+.window-exit-button {
+    -fx-text-fill: #e04646;
+}
+
+/* Hover & pressed feedback */
+.window-control-button:hover {
+    -fx-background-color: #3b3b3b;
+}
+
+.window-control-button:pressed {
+    -fx-background-color: #505050;
+}
+
+/* Close button special style (red hover) */
+.window-control-button:last-child:hover {
+    -fx-background-color: #a93232;
+    -fx-text-fill: white;
+}
+
+.window-control-button:last-child:pressed {
+    -fx-background-color: #802323;
+}
+
+/* ========== WINDOW BODY AREA ========== */
+.window-body {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #2b2b2b;
+    -fx-border-width: 1;
+    -fx-background-radius: 0 0 5 5;
+    -fx-fit-to-width: true;
+}
+
+/* Hide scrollbars until hovered */
+.window-body .scroll-bar:horizontal,
+.window-body .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-padding: -2;
+}
+
+.window-body:hover .scroll-bar:horizontal,
+.window-body:hover .scroll-bar:vertical {
+    -fx-opacity: 1;
+}
+
+/* ========== OPTIONAL INNER PANES ========== */
+.border-pane,
+.anchor-pane {
+    -fx-background-color: #1e1e1e;
+}
+
+/* Optional subtle shadow for the window container */
+.border-pane {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 12, 0, 0, 4);
+    -fx-background-radius: 5;
+}

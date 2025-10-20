@@ -2,6 +2,7 @@ package com.gummybear.desktop;
 
 import com.gummybear.desktop.icon.Icon;
 import com.gummybear.desktop.icon.IconSize;
+import com.gummybear.desktop.window.Window;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,14 +13,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.*;
 import lombok.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
 @Data
 public class Desktop {
 
-    private int nexID = 0;
+    private int nextIconID = 0;
+    private int nextWindowID = 0;
 
     private static Desktop currentDesktopInstance;
     private Desktop () {}
@@ -58,6 +59,7 @@ public class Desktop {
 
     private ContextMenu contextMenu = new ContextMenu();
     private ArrayList<Icon> iconArrayList = new ArrayList<>();
+    private ArrayList<Window> windowArrayList = new ArrayList<>();
     private Pane desktopPane;
     private int desktopWidth, desktopHeight;
 
@@ -116,6 +118,11 @@ public class Desktop {
                 initialX = desktopPadding;
                 initialY += size + offsetY;
             }
+        }
+
+        for (Window window : windowArrayList) {
+            desktopPane.getChildren().remove(window.getWindowUI());
+            desktopPane.getChildren().add(window.getWindowUI());
         }
     }
 
