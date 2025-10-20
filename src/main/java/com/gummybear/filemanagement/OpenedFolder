@@ -18,5 +18,31 @@ public class OpenedFolder {
     public VBox getFolderView() {
         return folderView;
     }
+    
+    public void render() {
+        int initialX = desktopPadding;
+        int initialY = desktopPadding;
+        for (Icon icon : iconArrayList) {
+            desktopPane.getChildren().remove(icon.getIconImage());
 
+            Point2D position = new Point2D(initialX, initialY);
+            icon.setPosition(position);
+            icon.getIconImage().setLayoutX(position.getX());
+            icon.getIconImage().setLayoutY(position.getY());
+
+            ImageView imageView = icon.getIconImage();
+            int size = desktopWidth / iconSize.getSize();
+            imageView.setFitHeight(size);
+            imageView.setFitWidth(size);
+
+            //System.out.println(initialX);
+            desktopPane.getChildren().add(icon.getIconImage());
+            initialX += size;
+
+            if (initialX+size >= desktopWidth) {
+                initialX = desktopPadding;
+                initialY += size;
+            }
+        }
+    }
 }
