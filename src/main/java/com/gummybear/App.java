@@ -29,27 +29,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        FileManager.loadFileStructure();
+        FileItem root = FileManager.getRoot();
+        FileManager.printTree(root);
 
-        FileItem root = FileManager.loadFileStructure();
-        for (FileItem item : root.getContents()) {
-            System.out.println(item.getName() + " (" + item.getType() + ")");
 
-            ContextMenuController contextMenuController = new ContextMenuController();
-
-            if (item.getType().equals("file")) {
-                // contextMenuController.createNewFile(item.getName());
-            }
-
-            if (item.getType().equals("folder")) {
-                // contextMenuController.createNewFolder(item.getName());
-
-                List<FileItem> contents = item.getContents();
-                for (FileItem contentItem : contents) {
-                    System.out.println("  - " + contentItem.getName() + " (" + contentItem.getType() + ")");
-                }
-            }
-        }
-
+        // Old Hard Coded JSON Parsing
         // ContextMenuController contextMenuController = new ContextMenuController();
         // try {
         //     List<JsonObject> rootItems = FileManager.loadFileStructure("DirectoryData/fileTree.json");

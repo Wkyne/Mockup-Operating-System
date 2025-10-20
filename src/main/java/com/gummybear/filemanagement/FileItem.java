@@ -12,18 +12,25 @@ public class FileItem {
         this.name = name;
         this.type = type;
     }
+
     public String getName() {
         return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
     public String getType() {
         return type;
     }
+
     public ArrayList<FileItem> getContents() {
         return contents;
     }
+
     public void setContents(ArrayList<FileItem> contents) {
         this.contents = contents;
     }
+
     public String getContentPath() {
         return contentPath;
     }
