@@ -13,6 +13,6 @@
          </BorderPane.margin></Pane>
    </center>
    <bottom>
-      <HBox prefHeight="40.0" style="-fx-background-color: rgba(0, 61, 122, 0.5);" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="40.0" style="-fx-background-color: rgb(70, 70, 120);" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

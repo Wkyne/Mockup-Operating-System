@@ -4,6 +4,9 @@ module com.gummybear {
     requires static lombok;
     requires com.google.gson;
     
+    requires java.desktop;
+    requires javafx.graphics;
+
     opens com.gummybear to javafx.fxml;
     exports com.gummybear;
     exports com.gummybear.desktop;
