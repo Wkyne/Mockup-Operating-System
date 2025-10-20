@@ -15,33 +15,69 @@ import java.util.List;
 
 import com.gummybear.filemanagement.FileItem;
 import com.gummybear.filemanagement.FileManager;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+
+// import com.oracle.graal.enterprise.hotspot.javacodegen.r;
 
 public class App extends Application {
 
     private static Scene scene;
 
+    public static void main(String[] args) {
+        launch();
+    }   
+
+
     @Override
     public void start(Stage stage) throws IOException {
 
-        try {
-            List<JsonObject> rootItems = FileManager.loadFileStructure("DirectoryData/fileTree.json");
-            
-            for (JsonObject item : rootItems) {
-                System.out.println(item.get("name").getAsString() + " (" + item.get("type").getAsString() + ")");
-                if (item.get("type").getAsString().equals("folder")) {
-                    List<JsonObject> contents = FileManager.getContents(item);
-                    for (JsonObject contentItem : contents) {
-                        System.out.println("  - " + contentItem.get("name").getAsString() + " (" + contentItem.get("type").getAsString() + ")");
-                    }
-                }
+        FileItem root = FileManager.loadFileStructure();
+        for (FileItem item : root.getContents()) {
+            System.out.println(item.getName() + " (" + item.getType() + ")");
+
+            ContextMenuController contextMenuController = new ContextMenuController();
+
+            if (item.getType().equals("file")) {
+                // contextMenuController.createNewFile(item.getName());
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (item.getType().equals("folder")) {
+                // contextMenuController.createNewFolder(item.getName());
+
+                List<FileItem> contents = item.getContents();
+                for (FileItem contentItem : contents) {
+                    System.out.println("  - " + contentItem.getName() + " (" + contentItem.getType() + ")");
+                }
+            }
         }
+
+        // ContextMenuController contextMenuController = new ContextMenuController();
+        // try {
+        //     List<JsonObject> rootItems = FileManager.loadFileStructure("DirectoryData/fileTree.json");
+            
+        //     for (JsonObject item : rootItems) {
+        //         System.out.println(item.get("name").getAsString() + " (" + item.get("type").getAsString() + ")");
+                
+        //         if (item.get("type").getAsString().equals("file")) {
+        //             contextMenuController.createNewFile(item.get("name").getAsString());
+        //         }
+
+        //         if (item.get("type").getAsString().equals("folder")) {
+                    
+        //             contextMenuController.createNewFolder(item.get("name").getAsString());
+
+        //             List<JsonObject> contents = FileManager.getContents(item);
+        //             for (JsonObject contentItem : contents) {
+        //                 System.out.println("  - " + contentItem.get("name").getAsString() + " (" + contentItem.get("type").getAsString() + ")");
+        //             }
+        //         }
+        //     }
+
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
+
+
+
 
         scene = new Scene(loadFXML("app"));
         stage.setScene(scene);
@@ -69,8 +105,6 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
+
 
 }

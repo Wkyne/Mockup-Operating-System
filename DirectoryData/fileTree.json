@@ -6,6 +6,34 @@
       "name": "MyFolder",
       "type": "folder",
       "contents": [
+        { "name": "hello.txt", "type": "file" },
+        { "name": "world.txt", "type": "file" }
+      ]
+    }
+    ,
+    {
+      "name": "MyFolder2",
+      "type": "folder",
+      "contents": [
+        { 
+          "name": "hello.txt",
+          "type": "file" 
+        }
+        ,
+        {
+        "name": "MyFolder2",
+        "type": "folder",
+        "contents": [
+          { "name": "hello.txt", "type": "file" }
+        ]
+        }
+      ]
+    }
+    ,
+    {
+      "name": "MyFolder3",
+      "type": "folder",
+      "contents": [
         { "name": "hello.txt", "type": "file" }
       ]
     }

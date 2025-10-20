@@ -6,6 +6,7 @@ public class FileItem {
     private String name;
     private String type; // folder or file
     private ArrayList<FileItem> contents;
+    private String contentPath;
 
     public FileItem(String name, String type) {
         this.name = name;
@@ -22,6 +23,12 @@ public class FileItem {
     }
     public void setContents(ArrayList<FileItem> contents) {
         this.contents = contents;
+    }
+    public String getContentPath() {
+        return contentPath;
+    }
+    public void setContentPath(String contentPath) {
+        this.contentPath = contentPath;
     }
 }
 

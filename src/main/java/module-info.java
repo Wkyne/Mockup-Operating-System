@@ -6,9 +6,12 @@ module com.gummybear {
     
     requires java.desktop;
     requires javafx.graphics;
-
-    opens com.gummybear to javafx.fxml;
+    requires javafx.base;
+    
     exports com.gummybear;
     exports com.gummybear.desktop;
     exports com.gummybear.desktop.icon;
+    
+    opens com.gummybear.filemanagement to com.google.gson;
+    opens com.gummybear to javafx.fxml;
 }
