@@ -2,21 +2,17 @@ package com.gummybear;
 
 import com.gummybear.desktop.Desktop;
 import com.gummybear.desktop.icon.Icon;
+import com.gummybear.desktop.window.Window;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class AppController {
 
@@ -32,7 +28,7 @@ public class AppController {
 
         final Parent contextMenuUI;
         try {
-            FXMLLoader contextMenuLoader = new FXMLLoader(getClass().getResource("context-menu.fxml"));
+            FXMLLoader contextMenuLoader = new FXMLLoader(getClass().getResource("/com/gummybear/context-menu.fxml"));
             contextMenuUI = contextMenuLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -94,10 +90,19 @@ public class AppController {
                 }
             }
 
+            boolean hoveringOnWindow = false;
+            for (Window window : desktop.getWindowArrayList()) {
+                Bounds windowBounds = window.getWindowUI().localToScene(window.getWindowUI().getBoundsInLocal());
+                if (windowBounds.contains(event.getSceneX(), event.getSceneY())) {
+                    hoveringOnWindow = true;
+                    break;
+                }
+            }
+
             if (!mouseInsideContextMenu) {
                 contextMenuUI.setVisible(false);
 
-                if (event.getButton() == MouseButton.PRIMARY && !(hoveringOnIcon || hoveringOnSelectedIcon)) {
+                if (event.getButton() == MouseButton.PRIMARY && !(hoveringOnIcon || hoveringOnSelectedIcon || hoveringOnWindow)) {
                     desktop.setSelectionBoxOrigin(new Point2D(event.getSceneX(), event.getSceneY()));
                     desktop.setSelectionBox(new Rectangle(
                             desktop.getSelectionBoxOrigin().getX(),
