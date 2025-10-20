@@ -1,0 +1,13 @@
+{
+  "name": "Root",
+  "type": "folder",
+  "contents": [
+    {
+      "name": "MyFolder",
+      "type": "folder",
+      "contents": [
+        { "name": "hello.txt", "type": "file" }
+      ]
+    }
+  ]
+}

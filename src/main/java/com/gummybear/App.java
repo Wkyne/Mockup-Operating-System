@@ -9,6 +9,15 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gummybear.filemanagement.FileItem;
+import com.gummybear.filemanagement.FileManager;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class App extends Application {
 
@@ -16,6 +25,24 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
+        try {
+            List<JsonObject> rootItems = FileManager.loadFileStructure("DirectoryData/fileTree.json");
+            
+            for (JsonObject item : rootItems) {
+                System.out.println(item.get("name").getAsString() + " (" + item.get("type").getAsString() + ")");
+                if (item.get("type").getAsString().equals("folder")) {
+                    List<JsonObject> contents = FileManager.getContents(item);
+                    for (JsonObject contentItem : contents) {
+                        System.out.println("  - " + contentItem.get("name").getAsString() + " (" + contentItem.get("type").getAsString() + ")");
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         scene = new Scene(loadFXML("app"));
         stage.setScene(scene);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
