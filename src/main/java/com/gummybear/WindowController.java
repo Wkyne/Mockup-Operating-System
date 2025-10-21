@@ -35,6 +35,13 @@ public class WindowController {
     @FXML
     Button windowExitButton;
 
+    private Runnable onExitCallback;
+
+    public void setOnExitCallback(Runnable onExitCallback) {
+        this.onExitCallback = onExitCallback;
+    }
+
+
     @FXML
     public void minimizeWindow() {
         System.out.println("[INFO] Minimized Window");
@@ -51,6 +58,9 @@ public class WindowController {
         Desktop desktop = Desktop.getInstance();
         desktop.getWindowArrayList().remove(windowInstance);
         desktop.getDesktopPane().getChildren().remove(windowInstance.getWindowUI());
-    }
 
+        if(onExitCallback != null){
+            onExitCallback.run();
+        }
+    }
 }

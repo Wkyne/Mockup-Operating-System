@@ -47,7 +47,7 @@ public class ContextMenuController {
 
     @FXML
     public void personalizeBtn(){
-        new PersonalizeWindow();
+        PersonalizeWindow.getInstance();
 
         System.out.println("[INFO] Changed Background Image");
     }

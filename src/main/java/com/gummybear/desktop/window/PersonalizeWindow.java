@@ -16,8 +16,17 @@ import lombok.Data;
 
 @Data
 public class PersonalizeWindow extends Window{
-    public PersonalizeWindow (){
-        super();
+    private static PersonalizeWindow instance;
+
+    public static PersonalizeWindow getInstance(){
+        if(instance==null){
+           instance = new PersonalizeWindow();
+           System.out.println("test");
+        }
+        return instance;
+    }
+
+    private PersonalizeWindow (){
         GridPane grid = new GridPane();
         grid.setBackground(
             new Background(
@@ -50,5 +59,9 @@ public class PersonalizeWindow extends Window{
         controller.getWindowTitleLabel().setText("Personalize Background");
         controller.getWindowTitleBarHBox().minWidthProperty().bind(grid.widthProperty());
         controller.getWindowRoot().setCenter(grid);
+        controller.setOnExitCallback(()->{
+            instance = null;
+        });
     }
+
 }
