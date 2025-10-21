@@ -8,13 +8,13 @@ public class FileWindow extends Window {
     String text = "";
 
     public FileWindow(Icon icon) {
-        super(icon);
+        super();
+        this.icon = icon;
         name = icon.getName();
         controller.getWindowTitleLabel().setText(name);
 
         TextArea textArea = new TextArea();
         controller.getWindowRoot().setCenter(textArea);
-
     }
 
 }
