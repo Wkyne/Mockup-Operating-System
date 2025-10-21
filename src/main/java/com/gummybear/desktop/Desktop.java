@@ -30,25 +30,11 @@ public class Desktop {
             currentDesktopInstance.addBackground("desktop-background1.jpg");
             currentDesktopInstance.addBackground("desktop-background2.png");
             currentDesktopInstance.addBackground("desktop-background3.jpg");
+            currentDesktopInstance.addBackground("desktop-background4.jpg");
+            currentDesktopInstance.addBackground("desktop-background5.jpg");
+            currentDesktopInstance.addBackground("desktop-background6.jpg");
         }
         return currentDesktopInstance;
-    }
-
-    private static ArrayList<Image> bgArr = new ArrayList<>();
-
-    BackgroundSize bgSize = new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true); // 1 2 WH Auto && 3 4 Not Relative to Pane, 5 Preserve Aspect Ratio
-    private static int currIndex = 0;
-
-    public void setBackground(){
-        BackgroundImage bgImage = new BackgroundImage(
-                bgArr.get(currIndex),
-                BackgroundRepeat.NO_REPEAT,  // No repeat horizontally
-                BackgroundRepeat.NO_REPEAT,  // No repeat vertically
-                BackgroundPosition.CENTER,   // Center the image
-                bgSize
-        );
-        currIndex = (currIndex+1)%bgArr.size();
-        desktopPane.setBackground(new Background(bgImage));
     }
 
     public void addBackground(String filename){ //Assert String filename in bg folder
@@ -56,6 +42,30 @@ public class Desktop {
             Objects.requireNonNull(Desktop.class.getResource("/com/gummybear/images/backgrounds/"+filename).toExternalForm()))
         );
     }
+
+    BackgroundSize bgSize = new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true); // 1 2 WH Auto && 3 4 Not Relative to Pane, 5 Preserve Aspect Ratio
+
+    private static ArrayList<Image> bgArr = new ArrayList<>();
+
+    public void setBackground(Image img){
+        BackgroundImage bgImage = new BackgroundImage(
+                img,
+                BackgroundRepeat.NO_REPEAT,  // No repeat horizontally
+                BackgroundRepeat.NO_REPEAT,  // No repeat vertically
+                BackgroundPosition.CENTER,   // Center the image
+                bgSize
+        );
+        desktopPane.setBackground(new Background(bgImage));
+    }
+
+    public ArrayList<Image> getBackgrounds(){
+        return bgArr;
+    }
+
+    public void setDefaultBg(){
+        setBackground(bgArr.get(0));
+    }
+
 
     private ContextMenu contextMenu = new ContextMenu();
     private ArrayList<Icon> iconArrayList = new ArrayList<>();
