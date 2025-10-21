@@ -32,8 +32,7 @@
       </padding>
    </Label>
    <Separator prefWidth="200.0" styleClass="context-menu-separator" stylesheets="@style/context-menu.css" />
-      <!-- onMouseClicked Temporary Change Bg -->
-    <Label maxWidth="1.7976931348623157E308" onMouseClicked="#changeBackground" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Personalize">
+    <Label maxWidth="1.7976931348623157E308" onMouseClicked="#personalizeBtn" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Personalize">
       <padding>
          <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
       </padding>
