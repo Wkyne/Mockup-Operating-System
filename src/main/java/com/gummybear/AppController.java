@@ -13,6 +13,9 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+// import com.gummybear.ContextMenuController;
+import com.gummybear.filemanagement.FileManager;
+import com.gummybear.filemanagement.FileItem;
 
 public class AppController {
 
@@ -33,6 +36,20 @@ public class AppController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        ContextMenuController contextMenuController = new ContextMenuController();
+        FileItem root = FileManager.getRoot();
+
+        for (FileItem item : root.getContents()) {
+            System.out.println(item.getName() + " (" + item.getType() + ")");
+            if (item.getType().equals("file")) {
+                contextMenuController.createNewFile(item.getName());
+            } else if (item.getType().equals("folder")) {
+                contextMenuController.createNewFolder(item.getName());
+            }
+        }
+        
+
 
         desktop.getContextMenu().setMenuUI((VBox) contextMenuUI);
         desktopPane.getChildren().add(contextMenuUI);

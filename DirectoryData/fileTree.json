@@ -3,7 +3,7 @@
   "type": "folder",
   "contents": [
     {
-      "name": "MyFolder",
+      "name": "Documents",
       "type": "folder",
       "contents": [
         { "name": "hello.txt", "type": "file" },
@@ -12,7 +12,7 @@
     }
     ,
     {
-      "name": "MyFolder2",
+      "name": "Downloads",
       "type": "folder",
       "contents": [
         { 
@@ -21,7 +21,7 @@
         }
         ,
         {
-        "name": "MyFolder2",
+        "name": "Games",
         "type": "folder",
         "contents": [
           { "name": "hello.txt", "type": "file" }
@@ -31,7 +31,7 @@
     }
     ,
     {
-      "name": "MyFolder3",
+      "name": "Images",
       "type": "folder",
       "contents": [
         { "name": "hello.txt", "type": "file" }

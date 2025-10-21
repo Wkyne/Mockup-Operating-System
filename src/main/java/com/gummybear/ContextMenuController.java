@@ -47,6 +47,34 @@ public class ContextMenuController {
     }
 
     @FXML
+    public void createNewFile(String name) {
+        Icon icon = new FileIcon(name);
+        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/document-icon.png")).toExternalForm());
+        icon.getIconImage().setImage(image);
+        icon.getIconVBox().getStyleClass().add("icon");
+
+        Desktop desktop = Desktop.getInstance();
+        desktop.getIconArrayList().add(icon);
+        desktop.render();
+    }
+
+    @FXML
+    public void createNewFolder(String name) {
+        Icon icon = new FolderIcon(name);
+        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/folder-icon.png")).toExternalForm());
+        icon.getIconImage().setImage(image);
+        icon.getIconImage().getStyleClass().add("icon");
+
+        Desktop desktop = Desktop.getInstance();
+        desktop.getIconArrayList().add(icon);
+        desktop.render();
+    }
+
+
+
+
+
+    @FXML
     public void changeBackground(){
         Desktop desktop = Desktop.getInstance();
         desktop.setBackground();

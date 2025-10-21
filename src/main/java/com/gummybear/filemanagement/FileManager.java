@@ -43,7 +43,7 @@ public class FileManager {
     }
 
 
-
+    //Testing functions
     public static void printTree(FileItem folder) {
         helperprintTree(folder, 0); 
     }
@@ -97,11 +97,10 @@ public class FileManager {
 
 
     // public static void createFile(JsonObject currentFolder, String fileName, String fileContentPath) throws IOException {
-    //     File newFile = new File(fileName, fileContentPath);
-    //     JsonObject tempFile = new JsonObject();
-    //     tempFile.addProperty("name", newFile.getName());
-    //     tempFile.addProperty("type", "file");
-    //     tempFile.addProperty("contentPath", newFile.fileContentPath);
+    //     JsonObject newFile = new JsonObject();
+    //     newFile.addProperty("name", fileName);
+    //     newFile.addProperty("type", "file");
+    //     newFile.addProperty("contentPath", fileContentPath);
 
 
     //     JsonArray contents = currentFolder.getAsJsonArray("contents");
