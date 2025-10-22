@@ -5,6 +5,8 @@ import com.gummybear.desktop.icon.FileIcon;
 import com.gummybear.desktop.icon.FolderIcon;
 import com.gummybear.desktop.icon.Icon;
 import com.gummybear.desktop.icon.IconSize;
+import com.gummybear.desktop.window.PersonalizeWindow;
+
 import javafx.fxml.FXML;
 // import javafx.scene.Group;
 // import javafx.scene.Parent;
@@ -75,9 +77,8 @@ public class ContextMenuController {
 
 
     @FXML
-    public void changeBackground(){
-        Desktop desktop = Desktop.getInstance();
-        desktop.setBackground();
+    public void personalizeBtn(){
+        new PersonalizeWindow();
 
         System.out.println("[INFO] Changed Background Image");
     }

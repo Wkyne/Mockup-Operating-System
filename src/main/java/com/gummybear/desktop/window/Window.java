@@ -26,8 +26,7 @@ public class Window {
 
     final double[] dragDelta = new double[2];
 
-    public Window(Icon icon) {
-        this.icon = icon;
+    public Window() {
         Desktop desktop = Desktop.getInstance();
 
         id = desktop.getNextWindowID();

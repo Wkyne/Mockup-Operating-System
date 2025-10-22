@@ -27,7 +27,7 @@ public class AppController {
     public void initialize() {
 
         desktop.setDesktopPane(desktopPane);
-        desktop.setBackground();
+        desktop.setDefaultBg();
 
         final Parent contextMenuUI;
         try {
@@ -203,8 +203,6 @@ public class AppController {
 
         });
 
-
-
         desktopPane.setOnMouseReleased(event -> {
             desktop = Desktop.getInstance();
 
@@ -231,7 +229,5 @@ public class AppController {
             contextMenuUI.setLayoutX(99999);
             contextMenuUI.setLayoutY(99999);
         });
-
     }
-
 }
