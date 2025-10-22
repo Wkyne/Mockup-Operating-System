@@ -38,14 +38,13 @@ public class Desktop {
     }
 
     public void addBackground(String filename){ //Assert String filename in bg folder
-        bgArr.add(new Image(
+        backgroundImageArrayList.add(new Image(
             Objects.requireNonNull(Desktop.class.getResource("/com/gummybear/images/backgrounds/"+filename).toExternalForm()))
         );
     }
+    BackgroundSize backgroundSize = new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true); // 1 2 WH Auto && 3 4 Not Relative to Pane, 5 Preserve Aspect Ratio
 
-    BackgroundSize bgSize = new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true,true); // 1 2 WH Auto && 3 4 Not Relative to Pane, 5 Preserve Aspect Ratio
-
-    private static ArrayList<Image> bgArr = new ArrayList<>();
+    private static ArrayList<Image> backgroundImageArrayList = new ArrayList<>();
 
     public void setBackground(Image img){
         BackgroundImage bgImage = new BackgroundImage(
@@ -53,19 +52,18 @@ public class Desktop {
                 BackgroundRepeat.NO_REPEAT,  // No repeat horizontally
                 BackgroundRepeat.NO_REPEAT,  // No repeat vertically
                 BackgroundPosition.CENTER,   // Center the image
-                bgSize
+                backgroundSize
         );
         desktopPane.setBackground(new Background(bgImage));
     }
 
     public ArrayList<Image> getBackgrounds(){
-        return bgArr;
+        return backgroundImageArrayList;
     }
 
-    public void setDefaultBg(){
-        setBackground(bgArr.get(0));
+    public void setDefaultBackground(){
+        setBackground(backgroundImageArrayList.get(0));
     }
-
 
     private ContextMenu contextMenu = new ContextMenu();
     private ArrayList<Icon> iconArrayList = new ArrayList<>();
@@ -91,7 +89,9 @@ public class Desktop {
     private IconSize iconSize = IconSize.MEDIUM;
     private int desktopPadding = 10;
 
-    public void render() {
+    public void refresh() {
+
+        // Reload icons
         int initialX = desktopPadding;
         int initialY = desktopPadding;
         for (Icon icon : iconArrayList) {
@@ -100,9 +100,7 @@ public class Desktop {
             if (selectedIconsArrayList.contains(icon)) {
                 iconGroup.getStyleClass().add("icon-selected");
             } else {
-                try {
-                    iconGroup.getStyleClass().remove("icon-selected");
-                } catch (Exception ignored) {}
+                iconGroup.getStyleClass().remove("icon-selected");
             }
 
             desktopPane.getChildren().remove(iconGroup);
@@ -130,6 +128,7 @@ public class Desktop {
             }
         }
 
+        // Reload windows
         for (Window window : windowArrayList) {
             desktopPane.getChildren().remove(window.getWindowUI());
             desktopPane.getChildren().add(window.getWindowUI());

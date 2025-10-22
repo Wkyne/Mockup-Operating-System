@@ -27,7 +27,7 @@ public class AppController {
     public void initialize() {
 
         desktop.setDesktopPane(desktopPane);
-        desktop.setDefaultBg();
+        desktop.setDefaultBackground();
 
         final Parent contextMenuUI;
         try {

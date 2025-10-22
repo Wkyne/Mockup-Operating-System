@@ -1,8 +1,6 @@
 package com.gummybear;
 
 import com.gummybear.desktop.Desktop;
-import com.gummybear.desktop.icon.FileIcon;
-import com.gummybear.desktop.icon.FolderIcon;
 import com.gummybear.desktop.icon.Icon;
 import com.gummybear.desktop.icon.IconSize;
 import com.gummybear.desktop.window.PersonalizeWindow;
@@ -10,13 +8,10 @@ import com.gummybear.desktop.window.PersonalizeWindow;
 import javafx.fxml.FXML;
 // import javafx.scene.Group;
 // import javafx.scene.Parent;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 // import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-
-import java.util.Objects;
 
 @Getter
 public class ContextMenuController {
@@ -58,7 +53,7 @@ public class ContextMenuController {
     public void changeToSmallIcons() {
         Desktop desktop = Desktop.getInstance();
         desktop.setIconSize(IconSize.SMALL);
-        desktop.render();
+        desktop.refresh();
 
         System.out.println("[INFO] Changed Icon Size to SMALL");
     }
@@ -67,7 +62,7 @@ public class ContextMenuController {
     public void changeToMediumIcons() {
         Desktop desktop = Desktop.getInstance();
         desktop.setIconSize(IconSize.MEDIUM);
-        desktop.render();
+        desktop.refresh();
 
         System.out.println("[INFO] Changed Icon Size to MEDIUM");
     }
@@ -76,7 +71,7 @@ public class ContextMenuController {
     public void changeToLargeIcons() {
         Desktop desktop = Desktop.getInstance();
         desktop.setIconSize(IconSize.LARGE);
-        desktop.render();
+        desktop.refresh();
 
         System.out.println("[INFO] Changed Icon Size to LARGE");
     }
