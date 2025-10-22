@@ -1,57 +1,91 @@
-package com.gummybear.filemanagement;
+package com.gummybear.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.*;
 
-public class FileManager {
-    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private static final String FILE_PATH = "DirectoryData/fileTree.json";
-    private static FileItem root;
+public class FileDataManager {
 
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private final String FILE_PATH = "DirectoryData/fileTree.json";
+    private int nextFileDataID = 0;
 
-    public static void loadFileStructure() throws IOException {
-        try (Reader reader = new FileReader(FILE_PATH)) {
-            root = gson.fromJson(reader, FileItem.class);
+    // Singleton Manager
+    private static FileDataManager fileDataManagerInstance = null;
+    public static FileDataManager getInstance() {
+        if (fileDataManagerInstance == null) {
+            fileDataManagerInstance = new FileDataManager();
+        }
+        return fileDataManagerInstance;
+    }
+    private FileDataManager() {}
+
+    public FileData loadRootDirectory() {
+        FileData rootDirectory = null;
+        try {
+            Reader reader = new FileReader(FILE_PATH);
+            rootDirectory = gson.fromJson(reader, FileData.class);
+            return rootDirectory;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
-    public static void saveFileStructure(FileItem root) throws IOException {
-        try (Writer writer = new FileWriter(FILE_PATH)) {
-            gson.toJson(root, writer);
+    public void saveRootDirectory() {
+        FileData rootDirectory = null;
+        try {
+            Writer writer = new FileWriter(FILE_PATH);
+            gson.toJson(rootDirectory, writer);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public static void createFile(FileItem currentFolder, String fileName, String contentPath) {
-        FileItem newFile = new FileItem(fileName, "file");
-        newFile.setContentPath(contentPath);
-        currentFolder.getContents().add(newFile);
+    public FileData createFile(FileData currentDirectory) {
+        FileData newFile = new FileData();
+        newFile.setId(nextFileDataID++);
+        newFile.setName("New File");
+        newFile.setType("file");
+        currentDirectory.getContents().add(newFile);
+
+        return newFile;
+    }
+    public FileData createFile() {
+        return createFile(FileDataTree.getRootDirectory());
     }
 
-    public static void createFolder(FileItem currentFolder, String folderName) {
-        FileItem newFolder = new FileItem(folderName, "folder");
-        currentFolder.getContents().add(newFolder);
+    public FileData createFolder(FileData currentDirectory) {
+        FileData newFile = new FileData();
+        newFile.setId(nextFileDataID++);
+        newFile.setName("New Folder");
+        newFile.setType("folder");
+        currentDirectory.getContents().add(newFile);
+
+        return newFile;
+    }
+    public FileData createFolder() {
+        return createFolder(FileDataTree.getRootDirectory());
     }
 
-    public static void deleteItem(FileItem currentFolder, String itemName) {
-        currentFolder.getContents().removeIf(item -> item.getName().equals(itemName));
+    public void deleteItem(FileData currentDirectory, FileData deleteFile) {
+        currentDirectory.getContents().removeIf(file -> file == deleteFile);
     }
-
-    public static FileItem getRoot() {
-        return root;
+    public void deleteItem(FileData deleteFile) {
+        deleteItem(FileDataTree.getRootDirectory(), deleteFile);
     }
 
 
     //Testing functions
-    public static void printTree(FileItem folder) {
+    public void printTree(FileData folder) {
         helperprintTree(folder, 0); 
     }
 
-    private static void helperprintTree(FileItem folder, int level) {
+    private void helperprintTree(FileData folder, int level) {
         String indent = "  ".repeat(level); 
 
-        for (FileItem item : folder.getContents()) {
+        for (FileData item : folder.getContents()) {
             System.out.println(indent + "- " + item.getName() + " (" + item.getType() + ")");
 
             if ("folder".equals(item.getType())) {
@@ -88,7 +122,7 @@ public class FileManager {
     // }
 
 
-    // public static void saveFileStructure(String filePath, List<FileItem> items) throws IOException {
+    // public static void saveFileStructure(String filePath, List<FileData> items) throws IOException {
     //     try (Writer writer = new FileWriter(filePath)) {
     //         gson.toJson(items, writer);
     //     }

@@ -32,6 +32,17 @@
       </padding>
    </Label>
    <Separator prefWidth="200.0" styleClass="context-menu-separator" stylesheets="@style/context-menu.css" />
+   <Label maxWidth="1.7976931348623157E308" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Open File Explorer">
+      <padding>
+         <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+      </padding>
+   </Label>
+   <Label maxWidth="1.7976931348623157E308" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Large Icons">
+      <padding>
+         <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+      </padding>
+   </Label>
+   <Separator prefWidth="200.0" styleClass="context-menu-separator" stylesheets="@style/context-menu.css" />
     <Label maxWidth="1.7976931348623157E308" onMouseClicked="#personalizeBtn" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Personalize">
       <padding>
          <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
