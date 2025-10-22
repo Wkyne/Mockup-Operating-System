@@ -1,5 +1,7 @@
 package com.gummybear;
 
+import com.gummybear.data.FileDataManager;
+import com.gummybear.data.FileDataTree;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +15,7 @@ import java.io.IOException;
 // import java.util.ArrayList;
 // import java.util.List;
 
-import com.gummybear.filemanagement.FileItem;
-import com.gummybear.filemanagement.FileManager;
+import com.gummybear.data.FileData;
 
 // import com.oracle.graal.enterprise.hotspot.javacodegen.r;
 
@@ -29,15 +30,20 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FileManager.loadFileStructure();
-        FileItem root = FileManager.getRoot();
-        FileManager.printTree(root);
+
+        FileDataTree tree = FileDataTree.getInstance();
+
+//        FileDataManager fileDataManager = FileDataManager.getInstance();
+//
+//        fileDataManager.loadFileStructure();
+//        FileData root = fileDataManager.getRoot();
+//        fileDataManager.printTree(root);
 
 
         // Old Hard Coded JSON Parsing
         // ContextMenuController contextMenuController = new ContextMenuController();
         // try {
-        //     List<JsonObject> rootItems = FileManager.loadFileStructure("DirectoryData/fileTree.json");
+        //     List<JsonObject> rootItems = FileDataManager.loadFileStructure("DirectoryData/fileTree.json");
             
         //     for (JsonObject item : rootItems) {
         //         System.out.println(item.get("name").getAsString() + " (" + item.get("type").getAsString() + ")");
@@ -50,7 +56,7 @@ public class App extends Application {
                     
         //             contextMenuController.createNewFolder(item.get("name").getAsString());
 
-        //             List<JsonObject> contents = FileManager.getContents(item);
+        //             List<JsonObject> contents = FileDataManager.getContents(item);
         //             for (JsonObject contentItem : contents) {
         //                 System.out.println("  - " + contentItem.get("name").getAsString() + " (" + contentItem.get("type").getAsString() + ")");
         //             }

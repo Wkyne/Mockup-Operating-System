@@ -26,60 +26,31 @@ public class ContextMenuController {
 
     @FXML
     public void createNewFile() {
-        Icon icon = new FileIcon();
-        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/document-icon.png")).toExternalForm());
-        icon.getIconImage().setImage(image);
-        icon.getIconVBox().getStyleClass().add("icon");
-
-        Desktop desktop = Desktop.getInstance();
-        desktop.getIconArrayList().add(icon);
-        desktop.render();
+//        Icon icon = new FileIcon();
+//        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/document-icon.png")).toExternalForm());
+//        icon.getIconImage().setImage(image);
+//        icon.getIconVBox().getStyleClass().add("icon");
+//
+//        Desktop desktop = Desktop.getInstance();
+//        desktop.getIconArrayList().add(icon);
+//        desktop.render();
     }
 
     @FXML
     public void createNewFolder() {
-        Icon icon = new FolderIcon();
-        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/folder-icon.png")).toExternalForm());
-        icon.getIconImage().setImage(image);
-        icon.getIconImage().getStyleClass().add("icon");
-
-        Desktop desktop = Desktop.getInstance();
-        desktop.getIconArrayList().add(icon);
-        desktop.render();
+//        Icon icon = new FolderIcon();
+//        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/folder-icon.png")).toExternalForm());
+//        icon.getIconImage().setImage(image);
+//        icon.getIconImage().getStyleClass().add("icon");
+//
+//        Desktop desktop = Desktop.getInstance();
+//        desktop.getIconArrayList().add(icon);
+//        desktop.render();
     }
-
-    @FXML
-    public void createNewFile(String name) {
-        Icon icon = new FileIcon(name);
-        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/document-icon.png")).toExternalForm());
-        icon.getIconImage().setImage(image);
-        icon.getIconVBox().getStyleClass().add("icon");
-
-        Desktop desktop = Desktop.getInstance();
-        desktop.getIconArrayList().add(icon);
-        desktop.render();
-    }
-
-    @FXML
-    public void createNewFolder(String name) {
-        Icon icon = new FolderIcon(name);
-        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/folder-icon.png")).toExternalForm());
-        icon.getIconImage().setImage(image);
-        icon.getIconImage().getStyleClass().add("icon");
-
-        Desktop desktop = Desktop.getInstance();
-        desktop.getIconArrayList().add(icon);
-        desktop.render();
-    }
-
-
-
-
 
     @FXML
     public void personalizeBtn(){
         new PersonalizeWindow();
-
         System.out.println("[INFO] Changed Background Image");
     }
 
@@ -123,5 +94,15 @@ public class ContextMenuController {
             desktopPane.getChildren().removeAll(desktop.getSelectedIconsArrayList().stream().map(Icon::getIconVBox).toList());
             desktop.getIconArrayList().removeAll(desktop.getSelectedIconsArrayList());
         }
+    }
+
+    @FXML
+    public void openFileExplorer() {
+
+    }
+
+    @FXML
+    public void openTerminal() {
+
     }
 }

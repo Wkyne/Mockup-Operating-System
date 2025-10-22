@@ -12,6 +12,6 @@ module com.gummybear {
     exports com.gummybear.desktop;
     exports com.gummybear.desktop.icon;
     
-    opens com.gummybear.filemanagement to com.google.gson;
+    opens com.gummybear.data to com.google.gson;
     opens com.gummybear to javafx.fxml;
 }
