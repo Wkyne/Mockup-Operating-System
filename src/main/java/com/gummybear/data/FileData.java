@@ -15,9 +15,8 @@ public class FileData {
     private String name;
     private String type; // folder or file
     private String text;
+    private String path;
     private ArrayList<FileData> contents;
-
-    private String contentPath;
 
 }
 

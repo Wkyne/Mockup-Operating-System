@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-
-<BorderPane fx:id="windowRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gummybear.WindowController">
+<BorderPane fx:id="windowRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="window" stylesheets="@style/window.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gummybear.WindowController">
    <top>
       <HBox fx:id="windowTitleBarHBox" alignment="CENTER_RIGHT" prefHeight="25.0" styleClass="title-bar" stylesheets="@style/window.css" BorderPane.alignment="CENTER">
          <children>

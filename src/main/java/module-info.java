@@ -14,4 +14,5 @@ module com.gummybear {
     
     opens com.gummybear.data to com.google.gson;
     opens com.gummybear to javafx.fxml;
+    exports com.gummybear.desktop.terminal;
 }

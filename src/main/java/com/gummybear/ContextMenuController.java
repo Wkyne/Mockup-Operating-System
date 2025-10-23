@@ -1,6 +1,7 @@
 package com.gummybear;
 
 import com.gummybear.desktop.Desktop;
+import com.gummybear.desktop.terminal.Terminal;
 import com.gummybear.desktop.icon.Icon;
 import com.gummybear.desktop.icon.IconSize;
 import com.gummybear.desktop.window.PersonalizeWindow;
@@ -98,6 +99,6 @@ public class ContextMenuController {
 
     @FXML
     public void openTerminal() {
-
+        Terminal terminal = new Terminal();
     }
 }

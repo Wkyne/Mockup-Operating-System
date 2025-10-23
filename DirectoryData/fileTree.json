@@ -1,41 +1,8 @@
 {
   "name": "Root",
   "type": "folder",
+  "path": "root/",
   "contents": [
-    {
-      "name": "Documents",
-      "type": "folder",
-      "contents": [
-        { "name": "hello.txt", "type": "file" },
-        { "name": "world.txt", "type": "file" }
-      ]
-    }
-    ,
-    {
-      "name": "Downloads",
-      "type": "folder",
-      "contents": [
-        { 
-          "name": "hello.txt",
-          "type": "file" 
-        }
-        ,
-        {
-        "name": "Games",
-        "type": "folder",
-        "contents": [
-          { "name": "hello.txt", "type": "file" }
-        ]
-        }
-      ]
-    }
-    ,
-    {
-      "name": "Images",
-      "type": "folder",
-      "contents": [
-        { "name": "hello.txt", "type": "file" }
-      ]
-    }
+    
   ]
 }
