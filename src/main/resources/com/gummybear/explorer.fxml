@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="explorer-root" stylesheets="@style/explorer.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gummybear.ExplorerController">
+   <top>
+      <HBox styleClass="explorer-navigation-bar" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" styleClass="explorer-forward-button" text="←" />
+            <Button mnemonicParsing="false" text="→" />
+            <TextField styleClass="explorer-search-field" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <TableView styleClass="explorer-table" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn maxWidth="100.0" minWidth="-1.0" prefWidth="-1.0" text="C1" />
+          <TableColumn maxWidth="100.0" minWidth="-1.0" prefWidth="-1.0" text="C2" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>

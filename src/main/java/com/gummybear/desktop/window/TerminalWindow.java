@@ -40,7 +40,7 @@ public class TerminalWindow extends Window {
 
         ScrollPane terminalRoot = null;
         try {
-            FXMLLoader terminalLoader = new FXMLLoader(getClass().getResource("/com/gummybear/command-line.fxml"));
+            FXMLLoader terminalLoader = new FXMLLoader(getClass().getResource("/com/gummybear/terminal.fxml"));
             terminalRoot = terminalLoader.load();
             terminalRoot.prefWidthProperty().bind(windowUI.widthProperty());
             terminalRoot.prefHeightProperty().bind(windowUI.heightProperty().subtract(controller.getWindowTitleBarHBox().heightProperty()));
@@ -50,9 +50,9 @@ public class TerminalWindow extends Window {
             throw new RuntimeException(e);
         }
 
-        inputLine.getStylesheets().add(getClass().getResource("/com/gummybear/style/command-line-window.css").toExternalForm());
+        inputLine.getStylesheets().add(getClass().getResource("/com/gummybear/style/terminal.css").toExternalForm());
         inputLine.getStyleClass().add("command-line-input");
-        currentPath.getStylesheets().add(getClass().getResource("/com/gummybear/style/command-line-window.css").toExternalForm());
+        currentPath.getStylesheets().add(getClass().getResource("/com/gummybear/style/terminal.css").toExternalForm());
         currentPath.getStyleClass().add("command-line-path");
         inputLineContainer.getChildren().addAll(currentPath, inputLine);
 

@@ -29,6 +29,14 @@
           "contents": []
         }
       ]
+    },
+    {
+      "id": 0,
+      "name": "temp",
+      "type": "file",
+      "text": "hello world\n",
+      "path": "root/temp",
+      "contents": []
     }
   ]
 }

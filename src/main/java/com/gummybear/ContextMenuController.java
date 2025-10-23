@@ -1,6 +1,7 @@
 package com.gummybear;
 
 import com.gummybear.desktop.Desktop;
+import com.gummybear.desktop.explorer.Explorer;
 import com.gummybear.desktop.terminal.Terminal;
 import com.gummybear.desktop.icon.Icon;
 import com.gummybear.desktop.icon.IconSize;
@@ -94,7 +95,7 @@ public class ContextMenuController {
 
     @FXML
     public void openFileExplorer() {
-
+        Explorer explorer = new Explorer();
     }
 
     @FXML
