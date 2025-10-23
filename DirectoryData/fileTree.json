@@ -1,40 +1,33 @@
 {
+  "id": 0,
   "name": "Root",
   "type": "folder",
+  "text": "",
+  "path": "root",
   "contents": [
     {
-      "name": "Documents",
+      "id": 0,
+      "name": "Desktop",
       "type": "folder",
+      "text": "",
+      "path": "root/Desktop",
       "contents": [
-        { "name": "hello.txt", "type": "file" },
-        { "name": "world.txt", "type": "file" }
-      ]
-    }
-    ,
-    {
-      "name": "Downloads",
-      "type": "folder",
-      "contents": [
-        { 
-          "name": "hello.txt",
-          "type": "file" 
-        }
-        ,
         {
-        "name": "Games",
-        "type": "folder",
-        "contents": [
-          { "name": "hello.txt", "type": "file" }
-        ]
+          "id": 0,
+          "name": "TEST",
+          "type": "file",
+          "text": "",
+          "path": "root/Desktop/TEST",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "TEST2",
+          "type": "file",
+          "text": "",
+          "path": "root/Desktop/TEST2",
+          "contents": []
         }
-      ]
-    }
-    ,
-    {
-      "name": "Images",
-      "type": "folder",
-      "contents": [
-        { "name": "hello.txt", "type": "file" }
       ]
     }
   ]

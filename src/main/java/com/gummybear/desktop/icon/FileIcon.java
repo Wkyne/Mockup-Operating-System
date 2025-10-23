@@ -13,12 +13,12 @@ public class FileIcon extends Icon {
         iconVBox.getChildren().addAll(iconImage, nameLabel);
         System.out.println("[INFO] Created New File: " + this.toString());
 
-        iconVBox.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                //System.out.println("YOU CLICKED ME");
-                window = new FileWindow(this);
-            }
-        });
+//        iconVBox.setOnMouseClicked(event -> {
+//            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+//                //System.out.println("YOU CLICKED ME");
+//                window = new FileWindow(this);
+//            }
+//        });
     }
 
     public FileIcon(String name) {
@@ -27,12 +27,12 @@ public class FileIcon extends Icon {
         iconVBox.getChildren().addAll(iconImage, nameLabel);
         System.out.println("[INFO] Created New File: " + this.toString());
 
-        iconVBox.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                //System.out.println("YOU CLICKED ME");
-                window = new FileWindow(this);
-            }
-        });
+//        iconVBox.setOnMouseClicked(event -> {
+//            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+//                //System.out.println("YOU CLICKED ME");
+//                window = new FileWindow(this);
+//            }
+//        });
     }
 
 }

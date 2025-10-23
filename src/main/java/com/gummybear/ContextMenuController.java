@@ -1,8 +1,7 @@
 package com.gummybear;
 
 import com.gummybear.desktop.Desktop;
-import com.gummybear.desktop.icon.FileIcon;
-import com.gummybear.desktop.icon.FolderIcon;
+import com.gummybear.desktop.terminal.Terminal;
 import com.gummybear.desktop.icon.Icon;
 import com.gummybear.desktop.icon.IconSize;
 import com.gummybear.desktop.window.PersonalizeWindow;
@@ -10,13 +9,10 @@ import com.gummybear.desktop.window.PersonalizeWindow;
 import javafx.fxml.FXML;
 // import javafx.scene.Group;
 // import javafx.scene.Parent;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 // import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-
-import java.util.Objects;
 
 @Getter
 public class ContextMenuController {
@@ -26,60 +22,31 @@ public class ContextMenuController {
 
     @FXML
     public void createNewFile() {
-        Icon icon = new FileIcon();
-        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/document-icon.png")).toExternalForm());
-        icon.getIconImage().setImage(image);
-        icon.getIconVBox().getStyleClass().add("icon");
-
-        Desktop desktop = Desktop.getInstance();
-        desktop.getIconArrayList().add(icon);
-        desktop.render();
+//        Icon icon = new FileIcon();
+//        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/document-icon.png")).toExternalForm());
+//        icon.getIconImage().setImage(image);
+//        icon.getIconVBox().getStyleClass().add("icon");
+//
+//        Desktop desktop = Desktop.getInstance();
+//        desktop.getIconArrayList().add(icon);
+//        desktop.render();
     }
 
     @FXML
     public void createNewFolder() {
-        Icon icon = new FolderIcon();
-        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/folder-icon.png")).toExternalForm());
-        icon.getIconImage().setImage(image);
-        icon.getIconImage().getStyleClass().add("icon");
-
-        Desktop desktop = Desktop.getInstance();
-        desktop.getIconArrayList().add(icon);
-        desktop.render();
+//        Icon icon = new FolderIcon();
+//        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/folder-icon.png")).toExternalForm());
+//        icon.getIconImage().setImage(image);
+//        icon.getIconImage().getStyleClass().add("icon");
+//
+//        Desktop desktop = Desktop.getInstance();
+//        desktop.getIconArrayList().add(icon);
+//        desktop.render();
     }
-
-    @FXML
-    public void createNewFile(String name) {
-        Icon icon = new FileIcon(name);
-        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/document-icon.png")).toExternalForm());
-        icon.getIconImage().setImage(image);
-        icon.getIconVBox().getStyleClass().add("icon");
-
-        Desktop desktop = Desktop.getInstance();
-        desktop.getIconArrayList().add(icon);
-        desktop.render();
-    }
-
-    @FXML
-    public void createNewFolder(String name) {
-        Icon icon = new FolderIcon(name);
-        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/folder-icon.png")).toExternalForm());
-        icon.getIconImage().setImage(image);
-        icon.getIconImage().getStyleClass().add("icon");
-
-        Desktop desktop = Desktop.getInstance();
-        desktop.getIconArrayList().add(icon);
-        desktop.render();
-    }
-
-
-
-
 
     @FXML
     public void personalizeBtn(){
         new PersonalizeWindow();
-
         System.out.println("[INFO] Changed Background Image");
     }
 
@@ -87,7 +54,7 @@ public class ContextMenuController {
     public void changeToSmallIcons() {
         Desktop desktop = Desktop.getInstance();
         desktop.setIconSize(IconSize.SMALL);
-        desktop.render();
+        desktop.refresh();
 
         System.out.println("[INFO] Changed Icon Size to SMALL");
     }
@@ -96,7 +63,7 @@ public class ContextMenuController {
     public void changeToMediumIcons() {
         Desktop desktop = Desktop.getInstance();
         desktop.setIconSize(IconSize.MEDIUM);
-        desktop.render();
+        desktop.refresh();
 
         System.out.println("[INFO] Changed Icon Size to MEDIUM");
     }
@@ -105,7 +72,7 @@ public class ContextMenuController {
     public void changeToLargeIcons() {
         Desktop desktop = Desktop.getInstance();
         desktop.setIconSize(IconSize.LARGE);
-        desktop.render();
+        desktop.refresh();
 
         System.out.println("[INFO] Changed Icon Size to LARGE");
     }
@@ -123,5 +90,15 @@ public class ContextMenuController {
             desktopPane.getChildren().removeAll(desktop.getSelectedIconsArrayList().stream().map(Icon::getIconVBox).toList());
             desktop.getIconArrayList().removeAll(desktop.getSelectedIconsArrayList());
         }
+    }
+
+    @FXML
+    public void openFileExplorer() {
+
+    }
+
+    @FXML
+    public void openTerminal() {
+        Terminal terminal = new Terminal();
     }
 }

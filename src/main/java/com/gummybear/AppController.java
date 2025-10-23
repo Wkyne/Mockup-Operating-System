@@ -1,5 +1,6 @@
 package com.gummybear;
 
+import com.gummybear.data.FileDataManager;
 import com.gummybear.desktop.Desktop;
 import com.gummybear.desktop.icon.Icon;
 import com.gummybear.desktop.window.Window;
@@ -14,8 +15,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 // import com.gummybear.ContextMenuController;
-import com.gummybear.filemanagement.FileManager;
-import com.gummybear.filemanagement.FileItem;
+import com.gummybear.data.FileData;
 
 public class AppController {
 
@@ -27,7 +27,7 @@ public class AppController {
     public void initialize() {
 
         desktop.setDesktopPane(desktopPane);
-        desktop.setDefaultBg();
+        desktop.setDefaultBackground();
 
         final Parent contextMenuUI;
         try {
@@ -37,17 +37,17 @@ public class AppController {
             throw new RuntimeException(e);
         }
 
-        ContextMenuController contextMenuController = new ContextMenuController();
-        FileItem root = FileManager.getRoot();
-
-        for (FileItem item : root.getContents()) {
-            System.out.println(item.getName() + " (" + item.getType() + ")");
-            if (item.getType().equals("file")) {
-                contextMenuController.createNewFile(item.getName());
-            } else if (item.getType().equals("folder")) {
-                contextMenuController.createNewFolder(item.getName());
-            }
-        }
+//        ContextMenuController contextMenuController = new ContextMenuController();
+//        FileData root = FileDataManager.getRoot();
+//
+//        for (FileData item : root.getContents()) {
+//            System.out.println(item.getName() + " (" + item.getType() + ")");
+//            if (item.getType().equals("file")) {
+//                contextMenuController.createNewFile(item.getName());
+//            } else if (item.getType().equals("folder")) {
+//                contextMenuController.createNewFolder(item.getName());
+//            }
+//        }
         
 
 

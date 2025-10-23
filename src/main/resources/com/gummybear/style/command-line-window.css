@@ -1,0 +1,102 @@
+/* Root ScrollPane styling */
+.command-line {
+    -fx-background-color: #1e1e1e;
+    -fx-background-insets: 0;
+    -fx-fit-to-width: true;
+}
+
+/* Remove default ScrollPane background */
+.command-line > .viewport {
+    -fx-background-color: #1e1e1e;
+}
+
+/* Scrollbar styling (modern, minimalistic) */
+.command-line .scroll-bar:vertical,
+.command-line .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.command-line .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.25);
+    -fx-background-radius: 4;
+}
+
+.command-line .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+}
+
+.command-line .increment-button,
+.command-line .decrement-button {
+    -fx-opacity: 0; /* Hide arrow buttons */
+    -fx-padding: 0;
+}
+
+/* VBox container styling (the content area) */
+.command-line-content {
+    -fx-background-color: #1e1e1e;
+    -fx-padding: 8;
+    -fx-spacing: 4;
+}
+.command-line-content > .label {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+}
+
+/* Optional: glowing text for commands (feel like a real terminal) */
+.command-line-content .command {
+    -fx-text-fill: #00ff90;
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 255, 144, 0.2), 6, 0.3, 0, 0);
+}
+
+/* Optional: system message style */
+.command-line-content .system-message {
+    -fx-text-fill: #6aa9ff;
+    -fx-font-style: italic;
+}
+
+/* Optional: error message style */
+.command-line-content .error-message {
+    -fx-text-fill: #ff5252;
+    -fx-font-weight: bold;
+}
+
+
+.command-line-path {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+}
+
+/* Command line input field (TextField) */
+.command-line-input {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 13px;
+    -fx-padding: 0;
+    -fx-highlight-fill: rgba(255, 255, 255, 0.15);
+    -fx-highlight-text-fill: white;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-max-width: infinity;
+}
+
+/* Remove focus ring entirely */
+.command-line-input:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-effect: none;
+}
+
+/* Optional: mimic a cursor glow (optional aesthetic effect) */
+.command-line-input:focused {
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 255, 144, 0.2), 4, 0.3, 0, 0);
+}
+
+/* Optional: make the caret (text cursor) green like terminals */
+.command-line-input .caret {
+    -fx-stroke: #00ff90;
+}
+

@@ -6,6 +6,16 @@
     -fx-text-fill: white;
 }
 
+
+.window {
+    -fx-pref-width: 600;
+    -fx-pref-height: 400;
+}
+.window>*{
+    -fx-max-width: infinity;
+    -fx-max-height: infinity;
+}
+
 /* ========== TITLE BAR AREA ========== */
 .title-bar {
     -fx-background-color: #2b2b2b;
