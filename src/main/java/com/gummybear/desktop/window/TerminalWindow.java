@@ -2,6 +2,7 @@ package com.gummybear.desktop.window;
 
 import com.gummybear.TerminalController;
 import com.gummybear.data.FileData;
+import com.gummybear.data.FileDataManager;
 import com.gummybear.data.FileDataTree;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -12,8 +13,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 
 @Getter
 public class TerminalWindow extends Window {
@@ -23,6 +27,12 @@ public class TerminalWindow extends Window {
     FileData currentDirectory = FileDataTree.getRootDirectory();
     TextField inputLine = new TextField();
     Label currentPath = new Label(currentDirectory.getPath() + "> ");
+    HBox inputLineContainer = new HBox();
+    private void moveDirectory(FileData newDirectory) {
+        currentDirectory = newDirectory;
+        inputLineContainer.getChildren().stream().filter(a -> a.getClass() == Label.class).findFirst().map(a -> (Label)a).get().setText(currentDirectory.getPath() + "> ");
+        currentPath = new Label(currentDirectory.getPath() + "> ");
+    }
 
     public TerminalWindow() {
         super();
@@ -45,12 +55,11 @@ public class TerminalWindow extends Window {
         inputLine.getStyleClass().add("command-line-input");
         currentPath.getStylesheets().add(getClass().getResource("/com/gummybear/style/command-line-window.css").toExternalForm());
         currentPath.getStyleClass().add("command-line-path");
+        inputLineContainer.getChildren().addAll(currentPath, inputLine);
 
         HBox.setHgrow(inputLine, Priority.ALWAYS);
 
         VBox terminalContent = terminalController.getTerminalContents();
-        HBox inputLineContainer = new HBox();
-        inputLineContainer.getChildren().addAll(currentPath, inputLine);
         terminalContent.getChildren().add(inputLineContainer);
 
         controller.getWindowRoot().setCenter(terminalRoot);
@@ -59,7 +68,9 @@ public class TerminalWindow extends Window {
     final private ArrayList<String> terminalCommandsArrayList = new ArrayList<>(Arrays.asList(
             "hello",
             "show",
-            "create"
+            "create",
+            "remove",
+            "move"
     ));
 
     public String parseCommand(String commandString) {
@@ -70,6 +81,8 @@ public class TerminalWindow extends Window {
                 case "hello" -> helloCommand(tokenArray);
                 case "show" -> showCommand(tokenArray);
                 case "create" -> createCommand(tokenArray);
+                case "remove" -> removeCommand(tokenArray);
+                case "move" -> moveCommand(tokenArray);
                 default -> "Unknown Error Encountered";
             };
         } else {
@@ -101,19 +114,71 @@ public class TerminalWindow extends Window {
 
     private String createCommand(String[] tokenArray) {
         int tokenAmount = tokenArray.length;
-        if (tokenAmount-1 == 1) {
-            boolean invalidArgument = tokenArray[1] == "file" || tokenArray[1] == "folder";
-            if (invalidArgument) {
-                return "Invalid Argument \"" + tokenArray[1] + "\"";
-            }
-            FileData fd = new FileData();
-            fd.setName("New File");
-            fd.setType(tokenArray[1]);
-            fd.setPath("root/"+fd.getName());
-            currentDirectory.getContents().add(fd);
-            return "Created new File";
-        } else {
+        if (tokenAmount-1 != 2) {
+            return "Parameter Mismatch: Expecting 2, Found " + tokenAmount;
+        }
+
+        boolean invalidArgument = !(Objects.equals(tokenArray[1], "file") || Objects.equals(tokenArray[1], "folder"));
+        if (invalidArgument) {
+            return "Invalid Argument \"" + tokenArray[1] + "\"";
+        }
+
+        FileData fileData = new FileData();
+        fileData.setName(tokenArray[2]);
+        fileData.setType(tokenArray[1]);
+        fileData.setText("");
+        fileData.setPath(currentDirectory.getPath()+"/"+fileData.getName());
+        fileData.setParent(currentDirectory);
+        fileData.setContents(new ArrayList<>());
+
+        currentDirectory.getContents().add(fileData);
+        FileDataManager manager = FileDataManager.getInstance();
+        manager.saveRootDirectory();
+
+        String type = (tokenArray[1] == "file")? "File" : "Folder";
+        return "Created " + type + ": " + fileData.getName();
+    }
+
+    private String removeCommand(String[] tokenArray) {
+        int tokenAmount = tokenArray.length;
+        if (tokenAmount-1 != 1) {
             return "Parameter Mismatch: Expecting 1, Found " + tokenAmount;
+        }
+
+        Optional<FileData> optionalFile = currentDirectory.getContents().stream().filter(a -> Objects.equals(a.getName(), tokenArray[1])).findFirst();
+        FileData file = null;
+        if (optionalFile.isPresent()) {
+            file = optionalFile.get();
+            String type = file.getType().replace("f", "F");
+            String name = file.getName();
+
+            file.getParent().getContents().remove(file);
+
+            return "Deleted " + type + ": " + name;
+        } else {
+            return tokenArray[1] + " Not Found";
+        }
+    }
+
+    private String moveCommand(String[] tokenArray) {
+        int tokenAmount = tokenArray.length;
+        if (tokenAmount-1 != 1) {
+            return "Parameter Mismatch: Expecting 1, Found " + tokenAmount;
+        }
+
+        if (Objects.equals(tokenArray[1], "..")) {
+            moveDirectory(currentDirectory.getParent());
+            return "Moved to Folder: " + currentDirectory.getName();
+        }
+
+        Optional<FileData> optionalFile = currentDirectory.getContents().stream().filter(a -> Objects.equals(a.getName(), tokenArray[1])).findFirst();
+        FileData file = null;
+        if (optionalFile.isPresent()) {
+            file = optionalFile.get();
+            moveDirectory(file);
+            return "Moved to Folder: " + file.getName();
+        } else {
+            return tokenArray[1] + " Not Found";
         }
     }
 

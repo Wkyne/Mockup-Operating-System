@@ -1,8 +1,34 @@
 {
+  "id": 0,
   "name": "Root",
   "type": "folder",
-  "path": "root/",
+  "text": "",
+  "path": "root",
   "contents": [
-    
+    {
+      "id": 0,
+      "name": "Desktop",
+      "type": "folder",
+      "text": "",
+      "path": "root/Desktop",
+      "contents": [
+        {
+          "id": 0,
+          "name": "TEST",
+          "type": "file",
+          "text": "",
+          "path": "root/Desktop/TEST",
+          "contents": []
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "name": "helloworld",
+      "type": "file",
+      "text": "",
+      "path": "root/helloworld",
+      "contents": []
+    }
   ]
 }
