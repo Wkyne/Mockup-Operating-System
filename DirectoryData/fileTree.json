@@ -16,7 +16,7 @@
           "id": 0,
           "name": "TEST",
           "type": "file",
-          "text": "",
+          "text": "HELLO WORLD",
           "path": "root/Desktop/TEST",
           "contents": []
         },
@@ -24,7 +24,7 @@
           "id": 0,
           "name": "TEST2",
           "type": "file",
-          "text": "",
+          "text": "HELLOWORLD HELLOWORLD",
           "path": "root/Desktop/TEST2",
           "contents": []
         }

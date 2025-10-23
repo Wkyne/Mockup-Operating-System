@@ -13,7 +13,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -68,7 +67,7 @@ public class TerminalWindow extends Window {
     final private ArrayList<String> terminalCommandsArrayList = new ArrayList<>(Arrays.asList(
             "hello",
             "help",
-            "show",
+            "list",
             "create",
             "remove",
             "move",
@@ -82,7 +81,7 @@ public class TerminalWindow extends Window {
             return switch (commandWord) {
                 case "hello" -> helloCommand(tokenArray);
                 case "help" -> helpCommand(tokenArray);
-                case "show" -> showCommand(tokenArray);
+                case "list" -> listCommand(tokenArray);
                 case "create" -> createCommand(tokenArray);
                 case "remove" -> removeCommand(tokenArray);
                 case "move" -> moveCommand(tokenArray);
@@ -112,15 +111,15 @@ public class TerminalWindow extends Window {
         return """
                 create [file|folder] [<name>] - Creates a file or folder in the current directory.
                 hello - Replies with "world"
-                help - Displays a list of commands.
+                help - Displays a list of commands
+                list - Prints all files and folders in the current directory.
                 move [<foldername>] - Moves to an existing directory
                 open [<filename>] - Opens an existing file in the current directory
                 remove [<name>] - Deletes an existing file or folder
-                show - Prints all files and folders in the current directory.
                 """;
     }
 
-    private String showCommand(String[] tokenArray) {
+    private String listCommand(String[] tokenArray) {
         int tokenAmount = tokenArray.length;
         if (tokenAmount-1 == 0) {
             StringBuilder directory = new StringBuilder();
