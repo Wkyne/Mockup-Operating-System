@@ -1,7 +1,10 @@
 package com.gummybear;
 
 import com.gummybear.desktop.window.TerminalWindow;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
@@ -30,15 +33,25 @@ public class TerminalController {
             windowInstance.getInputLine().setText("");
 
             Label commandLabel = new Label(path + command);
-            int nextIndex = terminalContents.getChildren().size()-1;
+            int nextIndex = terminalContents.getChildren().size() - 1;
 
             if (!command.isEmpty()) {
                 String result = windowInstance.parseCommand(command);
                 Label commandResult = new Label(result);
                 terminalContents.getChildren().add(nextIndex, commandResult);
+                Platform.runLater(()->{
+                    terminaRoot.setVvalue(1.0);
+                });
             }
             terminalContents.getChildren().add(nextIndex, commandLabel);
+
+            Platform.runLater(()->{
+                terminaRoot.setVvalue(1.0);
+            });
         }
     }
+
+
+
 
 }

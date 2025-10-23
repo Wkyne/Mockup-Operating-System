@@ -22,10 +22,11 @@ public class FileDataManager {
     private FileDataManager() {}
 
     public FileData loadRootDirectory() {
-        FileData rootDirectory = null;
-        try {
-            Reader reader = new FileReader(FILE_PATH);
+        FileData rootDirectory = FileDataTree.getRootDirectory();
+        try (Reader reader = new FileReader(FILE_PATH)) {
             rootDirectory = gson.fromJson(reader, FileData.class);
+            System.out.println(rootDirectory.toString());
+            assignParent(rootDirectory);
             return rootDirectory;
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,14 +35,14 @@ public class FileDataManager {
     }
 
     public void saveRootDirectory() {
-        FileData rootDirectory = null;
-        try {
-            Writer writer = new FileWriter(FILE_PATH);
+        FileData rootDirectory = FileDataTree.getRootDirectory();
+        try (Writer writer = new FileWriter(FILE_PATH)) {
             gson.toJson(rootDirectory, writer);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public FileData createFile(FileData currentDirectory) {
         FileData newFile = new FileData();
@@ -74,6 +75,13 @@ public class FileDataManager {
     }
     public void deleteItem(FileData deleteFile) {
         deleteItem(FileDataTree.getRootDirectory(), deleteFile);
+    }
+
+    private void assignParent(FileData fileData) {
+        fileData.getContents().stream().forEach(a -> {
+            a.setParent(fileData);
+            assignParent(a);
+        });
     }
 
 

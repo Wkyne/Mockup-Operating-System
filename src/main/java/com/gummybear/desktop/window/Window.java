@@ -1,6 +1,7 @@
 package com.gummybear.desktop.window;
 
 import com.gummybear.WindowController;
+import com.gummybear.data.FileData;
 import com.gummybear.desktop.Desktop;
 import com.gummybear.desktop.icon.Icon;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,6 @@ public class Window {
 
     int id;
     String name;
-    Icon icon;
     Point2D position;
     double width, height;
 

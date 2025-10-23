@@ -16,6 +16,9 @@ public class FileData {
     private String type; // folder or file
     private String text;
     private String path;
+    private transient FileData parent;
+    private transient boolean windowOpen;
+
     private ArrayList<FileData> contents;
 
 }
