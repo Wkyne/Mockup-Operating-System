@@ -29,14 +29,6 @@
           "contents": []
         }
       ]
-    },
-    {
-      "id": 0,
-      "name": "test",
-      "type": "file",
-      "text": "omg i cant believe this works",
-      "path": "root/test",
-      "contents": []
     }
   ]
 }

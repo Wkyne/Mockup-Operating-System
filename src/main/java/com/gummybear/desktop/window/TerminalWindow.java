@@ -114,7 +114,7 @@ public class TerminalWindow extends Window {
                 hello - Replies with "world"
                 help - Displays a list of commands.
                 move [<foldername>] - Moves to an existing directory
-                open [<filename] - Opens an existing file in the current directory
+                open [<filename>] - Opens an existing file in the current directory
                 remove [<name>] - Deletes an existing file or folder
                 show - Prints all files and folders in the current directory.
                 """;
