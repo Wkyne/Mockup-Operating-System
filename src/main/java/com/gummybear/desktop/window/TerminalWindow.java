@@ -151,12 +151,11 @@ public class TerminalWindow extends Window {
         fileData.setParent(currentDirectory);
         fileData.setContents(new ArrayList<>());
 
-        currentDirectory.getContents().add(fileData);
         FileDataManager manager = FileDataManager.getInstance();
-        manager.saveRootDirectory();
-
-        String type = (tokenArray[1] == "file")? "File" : "Folder";
-        return "Created " + type + ": " + fileData.getName();
+        return (Objects.equals(tokenArray[1], "file"))?
+                manager.createFile(currentDirectory, fileData)
+                :
+                manager.createFolder(currentDirectory, fileData);
     }
 
     private String removeCommand(String[] tokenArray) {
@@ -165,19 +164,8 @@ public class TerminalWindow extends Window {
             return "Parameter Mismatch: Expecting 1, Found " + tokenAmount;
         }
 
-        Optional<FileData> optionalFile = currentDirectory.getContents().stream().filter(a -> Objects.equals(a.getName(), tokenArray[1])).findFirst();
-        FileData file = null;
-        if (optionalFile.isPresent()) {
-            file = optionalFile.get();
-            String type = file.getType().replace("f", "F");
-            String name = file.getName();
-
-            file.getParent().getContents().remove(file);
-
-            return "Deleted " + type + ": " + name;
-        } else {
-            return tokenArray[1] + " Not Found";
-        }
+        FileDataManager manager = FileDataManager.getInstance();
+        return manager.deleteItem(currentDirectory, tokenArray[1]);
     }
 
     private String moveCommand(String[] tokenArray) {
@@ -220,7 +208,7 @@ public class TerminalWindow extends Window {
                 new FileWindow(file);
                 return "Opened File: " + file.getName();
             } else if (Objects.equals(file.getType(), "folder")) {
-                // TODO do this
+                // TODO dont forget to make open command work for folders too
                 return "Opened Folder: " + file.getName();
             } else {
                 return "Unknown Type Encountered";

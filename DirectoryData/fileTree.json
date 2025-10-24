@@ -1,185 +1,40 @@
 {
   "id": 0,
-  "name": "Root",
+  "name": "root",
   "type": "folder",
   "text": "",
   "path": "root",
   "contents": [
     {
       "id": 0,
-      "name": "Desktop",
+      "name": "desktop",
       "type": "folder",
       "text": "",
-      "path": "root/Desktop",
-      "contents": [
-        {
-          "id": 0,
-          "name": "TEST",
-          "type": "file",
-          "text": "HELLO WORLD",
-          "path": "root/Desktop/TEST",
-          "contents": []
-        },
-        {
-          "id": 0,
-          "name": "TEST2",
-          "type": "file",
-          "text": "HELLOWORLD HELLOWORLD",
-          "path": "root/Desktop/TEST2",
-          "contents": []
-        }
-      ]
-    },
-    {
-      "id": 0,
-      "name": "temp",
-      "type": "file",
-      "text": "hello world\n",
-      "path": "root/temp",
+      "path": "root/desktop",
       "contents": []
     },
     {
       "id": 0,
-      "name": "foldera",
+      "name": "media",
       "type": "folder",
       "text": "",
-      "path": "root/foldera",
+      "path": "root/media",
       "contents": []
     },
     {
       "id": 0,
-      "name": "folderb",
+      "name": "downloads",
       "type": "folder",
       "text": "",
-      "path": "root/folderb",
+      "path": "root/downloads",
       "contents": []
     },
     {
       "id": 0,
-      "name": "folderc",
+      "name": "documents",
       "type": "folder",
       "text": "",
-      "path": "root/folderc",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "filea",
-      "type": "file",
-      "text": "",
-      "path": "root/filea",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "fileb",
-      "type": "file",
-      "text": "",
-      "path": "root/fileb",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "filec",
-      "type": "file",
-      "text": "",
-      "path": "root/filec",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
-      "contents": []
-    },
-    {
-      "id": 0,
-      "name": "aaaaa",
-      "type": "file",
-      "text": "",
-      "path": "root/aaaaa",
+      "path": "root/documents",
       "contents": []
     }
   ]
