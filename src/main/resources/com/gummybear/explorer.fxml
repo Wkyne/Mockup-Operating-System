@@ -13,7 +13,7 @@
          <children>
             <Button fx:id="explorerBackButton" mnemonicParsing="false" onAction="#goToPreviousDirectory" text="←" />
             <Button fx:id="explorerForwardButton" mnemonicParsing="false" onAction="#goToNextDirectory" text="→" />
-            <TextField fx:id="inputField" styleClass="explorer-search-field" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="inputField" onKeyPressed="#explorerSearch" styleClass="explorer-search-field" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </top>
@@ -22,7 +22,7 @@
         <columns>
           <TableColumn fx:id="typeColumn" maxWidth="1000.0" minWidth="-1.0" prefWidth="75.0" text="Type" />
           <TableColumn fx:id="nameColumn" maxWidth="1000.0" minWidth="-1.0" prefWidth="250.0" text="Name" />
-            <TableColumn fx:id="pathColumn" maxWidth="1000.0" minWidth="-1.0" prefWidth="150.0" text="Path" />
+            <TableColumn fx:id="pathColumn" maxWidth="1000.0" minWidth="-1.0" prefWidth="200.0" text="Path" />
         </columns>
       </TableView>
    </center>
