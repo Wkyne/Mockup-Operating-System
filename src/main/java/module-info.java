@@ -3,16 +3,16 @@ module com.gummybear {
     requires javafx.fxml;
     requires static lombok;
     requires com.google.gson;
-    
+
     requires java.desktop;
     requires javafx.graphics;
     requires javafx.base;
-    
+
     exports com.gummybear;
     exports com.gummybear.desktop;
     exports com.gummybear.desktop.icon;
-    
-    opens com.gummybear.data to com.google.gson;
-    opens com.gummybear to javafx.fxml;
     exports com.gummybear.desktop.terminal;
+
+    opens com.gummybear to javafx.fxml;
+    opens com.gummybear.data to javafx.base, com.google.gson;
 }

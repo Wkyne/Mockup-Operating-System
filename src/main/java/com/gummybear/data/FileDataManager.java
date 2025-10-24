@@ -25,7 +25,7 @@ public class FileDataManager {
         FileData rootDirectory = FileDataTree.getRootDirectory();
         try (Reader reader = new FileReader(FILE_PATH)) {
             rootDirectory = gson.fromJson(reader, FileData.class);
-            System.out.println(rootDirectory.toString());
+            //System.out.println(rootDirectory.toString());
             assignParent(rootDirectory);
             return rootDirectory;
         } catch (Exception e) {

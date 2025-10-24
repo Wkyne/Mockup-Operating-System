@@ -7,22 +7,22 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="explorer-root" stylesheets="@style/explorer.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gummybear.ExplorerController">
+<BorderPane fx:id="explorerRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="explorer-root" stylesheets="@style/explorer.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gummybear.ExplorerController">
    <top>
-      <HBox styleClass="explorer-navigation-bar" BorderPane.alignment="CENTER">
+      <HBox fx:id="explorerNavigationBar" styleClass="explorer-navigation-bar" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" styleClass="explorer-forward-button" text="←" />
-            <Button mnemonicParsing="false" text="→" />
-            <TextField styleClass="explorer-search-field" HBox.hgrow="ALWAYS" />
+            <Button fx:id="explorerBackButton" mnemonicParsing="false" onAction="#goToPreviousDirectory" text="←" />
+            <Button fx:id="explorerForwardButton" mnemonicParsing="false" onAction="#goToNextDirectory" text="→" />
+            <TextField fx:id="inputField" styleClass="explorer-search-field" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </top>
    <center>
-      <TableView styleClass="explorer-table" BorderPane.alignment="CENTER">
+      <TableView fx:id="explorerTable" onMouseClicked="#clickOnItem" styleClass="explorer-table" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn maxWidth="100.0" minWidth="-1.0" prefWidth="-1.0" text="C1" />
-          <TableColumn maxWidth="100.0" minWidth="-1.0" prefWidth="-1.0" text="C2" />
+          <TableColumn fx:id="typeColumn" maxWidth="1000.0" minWidth="-1.0" prefWidth="75.0" text="Type" />
+          <TableColumn fx:id="nameColumn" maxWidth="1000.0" minWidth="-1.0" prefWidth="250.0" text="Name" />
+            <TableColumn fx:id="pathColumn" maxWidth="1000.0" minWidth="-1.0" prefWidth="150.0" text="Path" />
         </columns>
       </TableView>
    </center>
