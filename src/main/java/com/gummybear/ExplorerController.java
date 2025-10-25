@@ -1,6 +1,7 @@
 package com.gummybear;
 
 import com.gummybear.data.FileData;
+import com.gummybear.data.FileDataManager;
 import com.gummybear.data.FileDataTree;
 import com.gummybear.desktop.window.ExplorerWindow;
 import com.gummybear.desktop.window.FileWindow;
@@ -18,6 +19,7 @@ import javafx.scene.layout.HBox;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.File;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -64,6 +66,7 @@ public class ExplorerController {
                 System.out.println("[INFO] Moved To Folder: " + selectedItem.getName());
                 windowInstance.getPreviousFileStack().add(selectedItem.getParent());
                 windowInstance.setCurrentDirectory(selectedItem);
+                windowInstance.getNextFileStack().clear();
                 windowInstance.reloadItems();
             }
         }
@@ -90,25 +93,25 @@ public class ExplorerController {
     public void explorerSearch(KeyEvent event) {
         if (event.getCode() != KeyCode.ENTER) return;
 
+        //windowInstance.getPreviousFileStack().add(windowInstance.getCurrentDirectory());
+
         // Root
         if (inputField.getText().equals("root") || inputField.getText().isEmpty()) {
             windowInstance.setCurrentDirectory(FileDataTree.getRootDirectory());
+            windowInstance.reloadItems();
+            windowInstance.getPreviousFileStack().clear();
+            windowInstance.getNextFileStack().clear();
             windowInstance.reloadItems();
             System.out.println("[INFO] Moved To Folder: " + FileDataTree.getRootDirectory().getName());
             return;
         }
 
-        // Search for path
-        FileData directory;
-        Optional<FileData> searchedDirectory = FileDataTree
-                .getRootDirectory()
-                .getContents()
-                .stream()
-                .filter(a -> a.getPath().equals((inputField.getText())))
-                .findFirst();
-        if (searchedDirectory.isPresent()) {
-            directory = searchedDirectory.get();
+        // Path Search
+        FileData directory = pathSearch(FileDataTree.getRootDirectory(), inputField.getText());
+        if (directory != null) {
             if (directory.getType().equals("folder")) {
+                windowInstance.getPreviousFileStack().add(windowInstance.getCurrentDirectory());
+                windowInstance.getNextFileStack().clear();
                 windowInstance.setCurrentDirectory(directory);
                 windowInstance.reloadItems();
                 System.out.println("[INFO] Moved To Folder: " + directory.getName());
@@ -126,6 +129,26 @@ public class ExplorerController {
         fileSearch(FileDataTree.getRootDirectory());
     }
 
+    private FileData pathSearch(FileData currentDirectory, String path) {
+        Optional<FileData> searchedDirectory = currentDirectory
+                .getContents()
+                .stream()
+                .filter(a -> Objects.equals(a.getPath(), path))
+                .findFirst();
+        if (searchedDirectory.isPresent()) {
+            return searchedDirectory.get();
+        }
+
+        for (FileData fileData : currentDirectory.getContents()) {
+            FileData found = pathSearch(fileData, path);
+            if (found != null) {
+                return found;
+            }
+        }
+
+        return null;
+    }
+
     private void fileSearch(FileData currentDirectory) {
         currentDirectory
                 .getContents()
@@ -134,7 +157,7 @@ public class ExplorerController {
                     String searched = inputField.getText().toUpperCase();
                     if (name.contains(searched)) {
                         explorerTable.getItems().add(a);
-                        System.out.println("[INFO] " + a.toString());
+                        System.out.println("[INFO] " + a);
                     }
                     fileSearch(a);
                 });

@@ -71,7 +71,8 @@ public class TerminalWindow extends Window {
             "create",
             "remove",
             "move",
-            "open"
+            "open",
+            "run"
     ));
 
     public String parseCommand(String commandString) {
@@ -86,6 +87,7 @@ public class TerminalWindow extends Window {
                 case "remove" -> removeCommand(tokenArray);
                 case "move" -> moveCommand(tokenArray);
                 case "open" -> openCommand(tokenArray);
+                case "run" -> runCommand(tokenArray);
                 default -> "Unknown Error Encountered";
             };
         } else {
@@ -116,6 +118,7 @@ public class TerminalWindow extends Window {
                 move [<foldername>] - Moves to an existing directory
                 open [<filename>] - Opens an existing file in the current directory
                 remove [<name>] - Deletes an existing file or folder
+                run [<scriptname>] - Runs an existing script file in the current directory
                 """;
     }
 
@@ -124,7 +127,9 @@ public class TerminalWindow extends Window {
         if (tokenAmount-1 == 0) {
             StringBuilder directory = new StringBuilder();
             for (FileData fd : currentDirectory.getContents()) {
-                directory.append(fd.getName()).append("\n");
+                directory.append(fd.getName());
+                if (fd.getType().equals("folder")) directory.append("/");
+                directory.append("\n");
             }
             return (directory.toString().isEmpty())? "Empty Directory" : directory.toString();
         } else {
@@ -216,6 +221,29 @@ public class TerminalWindow extends Window {
         } else {
             return tokenArray[1] + " Not Found";
         }
+    }
+
+    private String runCommand(String[] tokenArray) {
+        int tokenAmount = tokenArray.length;
+        if (tokenAmount-1 != 1) {
+            return "Parameter Mismatch: Expecting 1, Found " + tokenAmount;
+        }
+
+        Optional<FileData> optionalFile = currentDirectory.getContents().stream().filter(a -> Objects.equals(a.getName(), tokenArray[1])).findFirst();
+        FileData file = null;
+        if (optionalFile.isPresent()) {
+            file = optionalFile.get();
+            if (Objects.equals(file.getType(), "file") && file.getName().contains(".script")) {
+                String[] scriptCode = file.getText().split("\n");
+                for (String command : scriptCode) {
+                    terminalController.readInputLine(command);
+                }
+                return "Finished Running Script";
+            }
+            return "Invalid Argument: Expected A Script File";
+        }
+
+        return tokenArray[1] + " Not Found";
     }
 
 }

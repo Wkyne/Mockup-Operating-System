@@ -43,18 +43,18 @@ public class FileDataManager {
 
     public String createFile(FileData currentDirectory, FileData newFile) {
         boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newFile.getName()));
-        if (nameExists) return "\"" + newFile.getName() + "\" Is Already Taken";
+        if (nameExists) return newFile.getName() + " Is Already Taken";
         currentDirectory.getContents().add(newFile);
         saveRootDirectory();
-        return "Created File: \"" + newFile.getName() + "\"";
+        return "Created File" + newFile.getName();
     }
 
     public String createFolder(FileData currentDirectory, FileData newFolder) {
         boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newFolder.getName()));
-        if (nameExists) return "\"" + newFolder.getName() + "\" Is Already Taken";
+        if (nameExists) return newFolder.getName() + " Is Already Taken";
         currentDirectory.getContents().add(newFolder);
         saveRootDirectory();
-        return "Created Folder: \"" + newFolder.getName() + "\"";
+        return "Created Folder: " + newFolder.getName();
     }
 
     public String deleteItem(FileData currentDirectory, String fileName) {
