@@ -72,7 +72,8 @@ public class TerminalWindow extends Window {
             "remove",
             "move",
             "open",
-            "run"
+            "run",
+            "rename"
     ));
 
     public String parseCommand(String commandString) {
@@ -88,6 +89,7 @@ public class TerminalWindow extends Window {
                 case "move" -> moveCommand(tokenArray);
                 case "open" -> openCommand(tokenArray);
                 case "run" -> runCommand(tokenArray);
+                case "rename" -> renameCommand(tokenArray);
                 default -> "Unknown Error Encountered";
             };
         } else {
@@ -114,10 +116,11 @@ public class TerminalWindow extends Window {
                 create [file|folder] [<name>] - Creates a file or folder in the current directory.
                 hello - Replies with "world"
                 help - Displays a list of commands
-                list - Prints all files and folders in the current directory.
+                list - Prints all files and folders in the current directory
                 move [<foldername>] - Moves to an existing directory
                 open [<filename>] - Opens an existing file in the current directory
                 remove [<name>] - Deletes an existing file or folder
+                rename [<name1>] [<name2>] - Replaces the name of an existing file or forder with a new one
                 run [<scriptname>] - Runs an existing script file in the current directory
                 """;
     }
@@ -145,7 +148,7 @@ public class TerminalWindow extends Window {
 
         boolean invalidArgument = !(Objects.equals(tokenArray[1], "file") || Objects.equals(tokenArray[1], "folder"));
         if (invalidArgument) {
-            return "Invalid Argument \"" + tokenArray[1] + "\"";
+            return "Invalid Argument: " + tokenArray[1];
         }
 
         FileData fileData = new FileData();
@@ -245,6 +248,16 @@ public class TerminalWindow extends Window {
         }
 
         return tokenArray[1] + " Not Found";
+    }
+
+    private String renameCommand(String[] tokenArray) {
+        int tokenAmount = tokenArray.length;
+        if (tokenAmount-1 != 2) {
+            return "Parameter Mismatch: Expecting 2, Found " + tokenAmount;
+        }
+
+        FileDataManager manager = FileDataManager.getInstance();
+        return manager.renameItem(currentDirectory, tokenArray[1], tokenArray[2]);
     }
 
 }

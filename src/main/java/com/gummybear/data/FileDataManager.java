@@ -46,7 +46,7 @@ public class FileDataManager {
         if (nameExists) return newFile.getName() + " Is Already Taken";
         currentDirectory.getContents().add(newFile);
         saveRootDirectory();
-        return "Created File" + newFile.getName();
+        return "Created File: " + newFile.getName();
     }
 
     public String createFolder(FileData currentDirectory, FileData newFolder) {
@@ -71,6 +71,19 @@ public class FileDataManager {
         } else {
             return fileName + " Not Found";
         }
+    }
+
+    public String renameItem(FileData currentDirectory, String oldName, String newName) {
+        boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newName));
+        if (nameExists) return newName + " Is Already Taken";
+        Optional<FileData> optionalFile = currentDirectory.getContents().stream().filter(a -> Objects.equals(a.getName(), oldName)).findFirst();
+        if (optionalFile.isPresent()) {
+            FileData file = optionalFile.get();
+            file.setName(newName);
+            file.setPath(currentDirectory.getPath()+"/"+newName);
+            return "Renamed File: " + oldName + " To " + newName;
+        }
+        return oldName + " Not Found";
     }
 
     private void assignParent(FileData fileData) {
