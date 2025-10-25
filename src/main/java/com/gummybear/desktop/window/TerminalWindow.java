@@ -213,7 +213,8 @@ public class TerminalWindow extends Window {
                 new FileWindow(file);
                 return "Opened File: " + file.getName();
             } else if (Objects.equals(file.getType(), "folder")) {
-                // TODO dont forget to make open command work for folders too
+                file.setWindowOpen(true);
+                new ExplorerWindow(file);
                 return "Opened Folder: " + file.getName();
             } else {
                 return "Unknown Type Encountered";
