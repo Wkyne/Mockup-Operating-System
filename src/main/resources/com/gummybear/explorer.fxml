@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane fx:id="explorerRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="explorer-root" stylesheets="@style/explorer.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gummybear.ExplorerController">
+   <top>
+      <HBox fx:id="explorerNavigationBar" styleClass="explorer-navigation-bar" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="explorerBackButton" mnemonicParsing="false" onAction="#goToPreviousDirectory" text="←" />
+            <Button fx:id="explorerForwardButton" mnemonicParsing="false" onAction="#goToNextDirectory" text="→" />
+            <Button fx:id="explorerRefreshButton" mnemonicParsing="false" onAction="#refreshExplorer" text="↺" />
+            <TextField fx:id="inputField" onKeyPressed="#explorerSearch" styleClass="explorer-search-field" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <TableView fx:id="explorerTable" onMouseClicked="#clickOnItem" styleClass="explorer-table" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="typeColumn" maxWidth="1000.0" minWidth="-1.0" prefWidth="75.0" text="Type" />
+          <TableColumn fx:id="nameColumn" maxWidth="1000.0" minWidth="-1.0" prefWidth="300.0" text="Name" />
+          <TableColumn fx:id="pathColumn" maxWidth="1000.0" minWidth="-1.0" prefWidth="400.0" text="Path" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>

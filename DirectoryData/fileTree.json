@@ -1,32 +1,532 @@
 {
   "id": 0,
-  "name": "Root",
+  "name": "root",
   "type": "folder",
   "text": "",
   "path": "root",
   "contents": [
     {
       "id": 0,
-      "name": "Desktop",
+      "name": "desktop",
       "type": "folder",
       "text": "",
-      "path": "root/Desktop",
+      "path": "root/desktop",
+      "contents": []
+    },
+    {
+      "id": 0,
+      "name": "media",
+      "type": "folder",
+      "text": "",
+      "path": "root/media",
+      "contents": []
+    },
+    {
+      "id": 0,
+      "name": "downloads",
+      "type": "folder",
+      "text": "",
+      "path": "root/downloads",
       "contents": [
         {
           "id": 0,
-          "name": "TEST",
+          "name": "log",
           "type": "file",
           "text": "",
-          "path": "root/Desktop/TEST",
+          "path": "root/downloads/log",
           "contents": []
         },
         {
           "id": 0,
-          "name": "TEST2",
+          "name": "memo",
           "type": "file",
           "text": "",
-          "path": "root/Desktop/TEST2",
+          "path": "root/downloads/memo",
           "contents": []
+        },
+        {
+          "id": 0,
+          "name": "project",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/project",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "review",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/review",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "data",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/data",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "schedule",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/schedule",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "checklist",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/checklist",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "outline",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/outline",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "analysis",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/analysis",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "proposal",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/proposal",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "brief",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/brief",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "summaryreport",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/summaryreport",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "presentation",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/presentation",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "notesheet",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/notesheet",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "reference",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/reference",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "draftplan",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/draftplan",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "experiment",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/experiment",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "record",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/record",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "tracker",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/tracker",
+          "contents": []
+        },
+        {
+          "id": 0,
+          "name": "planbook",
+          "type": "file",
+          "text": "",
+          "path": "root/downloads/planbook",
+          "contents": []
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "name": "documents",
+      "type": "folder",
+      "text": "",
+      "path": "root/documents",
+      "contents": [
+        {
+          "id": 0,
+          "name": "important",
+          "type": "folder",
+          "text": "",
+          "path": "root/documents/important",
+          "contents": [
+            {
+              "id": 0,
+              "name": "passport-scan",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/passport-scan",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "birth-certificate",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/birth-certificate",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "national-id",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/national-id",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "tax-return-2024",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/tax-return-2024",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "employment-contract",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/employment-contract",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "bank-statement",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/bank-statement",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "sss-record",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/sss-record",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "philhealth-record",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/philhealth-record",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "certificate-employment",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/certificate-employment",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "transcript-of-records",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/transcript-of-records",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "diploma",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/diploma",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "medical-history",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/medical-history",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "emergency-contacts",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/emergency-contacts",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "property-deed",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/property-deed",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "will-and-testament",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/important/will-and-testament",
+              "contents": []
+            }
+          ]
+        },
+        {
+          "id": 0,
+          "name": "work",
+          "type": "folder",
+          "text": "",
+          "path": "root/documents/work",
+          "contents": [
+            {
+              "id": 0,
+              "name": "report-january-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-january-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-february-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-february-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-march-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-march-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-april-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-april-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-may-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-may-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-june-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-june-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-july-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-july-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-august-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-august-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-september-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-september-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-october-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-october-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-november-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-november-2025",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "report-december-2025",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/report-december-2025",
+              "contents": []
+            }
+          ]
+        },
+        {
+          "id": 0,
+          "name": "assignment",
+          "type": "folder",
+          "text": "",
+          "path": "root/documents/assignment",
+          "contents": [
+            {
+              "id": 0,
+              "name": "assignment1",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/assignment/assignment1",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "assignment2",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/assignment/assignment2",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "assignment3",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/assignment/assignment3",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "assignment4",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/assignment/assignment4",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "assignment5",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/assignment/assignment5",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "assignment6",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/assignment/assignment6",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "assignment7",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/assignment/assignment7",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "assignment8",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/assignment/assignment8",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "assignment9",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/assignment/assignment9",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "assignment10",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/assignment/assignment10",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "pdf",
+              "type": "folder",
+              "text": "",
+              "path": "root/documents/assignment/pdf",
+              "contents": []
+            }
+          ]
         }
       ]
     }

@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Optional;
 
 public class FileDataManager {
 
@@ -22,59 +25,66 @@ public class FileDataManager {
     private FileDataManager() {}
 
     public FileData loadRootDirectory() {
-        FileData rootDirectory = FileDataTree.getRootDirectory();
+        FileData rootDirectory = null;
         try (Reader reader = new FileReader(FILE_PATH)) {
             rootDirectory = gson.fromJson(reader, FileData.class);
-            System.out.println(rootDirectory.toString());
             assignParent(rootDirectory);
-            return rootDirectory;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        } catch (Exception ignored) {}
+        return rootDirectory;
     }
 
     public void saveRootDirectory() {
         FileData rootDirectory = FileDataTree.getRootDirectory();
         try (Writer writer = new FileWriter(FILE_PATH)) {
             gson.toJson(rootDirectory, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {}
+    }
+
+
+    public String createFile(FileData currentDirectory, FileData newFile) {
+        boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newFile.getName()));
+        if (nameExists) return newFile.getName() + " Is Already Taken";
+        currentDirectory.getContents().add(newFile);
+        saveRootDirectory();
+        return "Created File: " + newFile.getName();
+    }
+
+    public String createFolder(FileData currentDirectory, FileData newFolder) {
+        boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newFolder.getName()));
+        if (nameExists) return newFolder.getName() + " Is Already Taken";
+        currentDirectory.getContents().add(newFolder);
+        saveRootDirectory();
+        return "Created Folder: " + newFolder.getName();
+    }
+
+    public String deleteItem(FileData currentDirectory, String fileName) {
+        Optional<FileData> optionalFile = currentDirectory.getContents().stream().filter(a -> Objects.equals(a.getName(), fileName)).findFirst();
+        if (optionalFile.isPresent()) {
+            FileData file = optionalFile.get();
+            String type = file.getType().replace("f", "F");
+            String name = file.getName();
+
+            file.getParent().getContents().remove(file);
+
+            saveRootDirectory();
+            return "Deleted " + type + ": " + name;
+        } else {
+            return fileName + " Not Found";
         }
     }
 
-
-    public FileData createFile(FileData currentDirectory) {
-        FileData newFile = new FileData();
-        newFile.setId(nextFileDataID++);
-        newFile.setName("New File");
-        newFile.setType("file");
-        currentDirectory.getContents().add(newFile);
-
-        return newFile;
-    }
-    public FileData createFile() {
-        return createFile(FileDataTree.getRootDirectory());
-    }
-
-    public FileData createFolder(FileData currentDirectory) {
-        FileData newFile = new FileData();
-        newFile.setId(nextFileDataID++);
-        newFile.setName("New Folder");
-        newFile.setType("folder");
-        currentDirectory.getContents().add(newFile);
-
-        return newFile;
-    }
-    public FileData createFolder() {
-        return createFolder(FileDataTree.getRootDirectory());
-    }
-
-    public void deleteItem(FileData currentDirectory, FileData deleteFile) {
-        currentDirectory.getContents().removeIf(file -> file == deleteFile);
-    }
-    public void deleteItem(FileData deleteFile) {
-        deleteItem(FileDataTree.getRootDirectory(), deleteFile);
+    public String renameItem(FileData currentDirectory, String oldName, String newName) {
+        boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newName));
+        if (nameExists) return newName + " Is Already Taken";
+        Optional<FileData> optionalFile = currentDirectory.getContents().stream().filter(a -> Objects.equals(a.getName(), oldName)).findFirst();
+        if (optionalFile.isPresent()) {
+            FileData file = optionalFile.get();
+            file.setName(newName);
+            file.setPath(currentDirectory.getPath()+"/"+newName);
+            updatePath(file);
+            return "Renamed File: " + oldName + " To " + newName;
+        }
+        return oldName + " Not Found";
     }
 
     private void assignParent(FileData fileData) {
@@ -82,6 +92,15 @@ public class FileDataManager {
             a.setParent(fileData);
             assignParent(a);
         });
+    }
+
+    private void updatePath(FileData currentDirectory) {
+        currentDirectory
+                .getContents()
+                .forEach(a -> {
+                    a.setPath(currentDirectory.getPath()+"/"+a.getName());
+                    updatePath(a);
+                });
     }
 
 
