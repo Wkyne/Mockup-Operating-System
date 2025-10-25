@@ -81,6 +81,7 @@ public class FileDataManager {
             FileData file = optionalFile.get();
             file.setName(newName);
             file.setPath(currentDirectory.getPath()+"/"+newName);
+            updatePath(file);
             return "Renamed File: " + oldName + " To " + newName;
         }
         return oldName + " Not Found";
@@ -91,6 +92,15 @@ public class FileDataManager {
             a.setParent(fileData);
             assignParent(a);
         });
+    }
+
+    private void updatePath(FileData currentDirectory) {
+        currentDirectory
+                .getContents()
+                .forEach(a -> {
+                    a.setPath(currentDirectory.getPath()+"/"+a.getName());
+                    updatePath(a);
+                });
     }
 
 
