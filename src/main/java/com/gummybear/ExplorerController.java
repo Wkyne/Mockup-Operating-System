@@ -1,5 +1,6 @@
 package com.gummybear;
 
+import com.google.errorprone.annotations.FormatMethod;
 import com.gummybear.data.FileData;
 import com.gummybear.data.FileDataManager;
 import com.gummybear.data.FileDataTree;
@@ -40,6 +41,9 @@ public class ExplorerController {
 
     @FXML
     Button explorerForwardButton;
+
+    @FXML
+    Button explorerRefreshButton;
 
     @FXML
     TextField inputField;
@@ -87,6 +91,10 @@ public class ExplorerController {
         windowInstance.setCurrentDirectory(nextDirectory);
         windowInstance.reloadItems();
         System.out.println("[INFO] Moved To Folder: " + nextDirectory.getName());
+    }
+    @FXML
+    public void refreshExplorer() {
+        windowInstance.reloadItems();
     }
 
     @FXML

@@ -13,6 +13,7 @@
          <children>
             <Button fx:id="explorerBackButton" mnemonicParsing="false" onAction="#goToPreviousDirectory" text="←" />
             <Button fx:id="explorerForwardButton" mnemonicParsing="false" onAction="#goToNextDirectory" text="→" />
+            <Button fx:id="explorerRefreshButton" mnemonicParsing="false" onAction="#refreshExplorer" text="↺" />
             <TextField fx:id="inputField" onKeyPressed="#explorerSearch" styleClass="explorer-search-field" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>

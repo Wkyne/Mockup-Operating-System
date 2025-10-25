@@ -7,6 +7,7 @@ module com.gummybear {
     requires java.desktop;
     requires javafx.graphics;
     requires javafx.base;
+    requires com.google.errorprone.annotations;
 
     exports com.gummybear;
     exports com.gummybear.desktop;
