@@ -98,6 +98,7 @@ public class FileDataManager {
                 return findFile(FileDataTree.getRootDirectory(), path);
             }
             while (path.startsWith("../")) {
+                if (currentDirectory == FileDataTree.getRootDirectory()) return null;
                 currentDirectory = currentDirectory.getParent();
                 path = path.replaceFirst("../", "");
             }
