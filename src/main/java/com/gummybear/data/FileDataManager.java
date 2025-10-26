@@ -2,6 +2,7 @@ package com.gummybear.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javafx.scene.control.Label;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -87,6 +88,33 @@ public class FileDataManager {
         return oldName + " Not Found";
     }
 
+    public FileData findDirectory(FileData currentDirectory, String path) {
+
+        System.out.println("[INFO] Searching for: " + (currentDirectory.getPath()+"/"+path));
+
+        // Search for path
+        if (path.contains("/")) {
+            if (path.contains("root")) {
+                return findFile(FileDataTree.getRootDirectory(), path);
+            }
+            while (path.startsWith("../")) {
+                currentDirectory = currentDirectory.getParent();
+                path = path.replaceFirst("../", "");
+            }
+            return findFile(currentDirectory, currentDirectory.getPath()+"/"+path);
+        }
+
+        // Search for children
+        String finalPath = path;
+        Optional<FileData> childFile = currentDirectory
+                .getContents()
+                .stream()
+                .filter(a -> Objects.equals(a.getName(), finalPath))
+                .findFirst();
+        return childFile.orElse(null);
+
+    }
+
     private void assignParent(FileData fileData) {
         fileData.getContents().stream().forEach(a -> {
             a.setParent(fileData);
@@ -101,6 +129,19 @@ public class FileDataManager {
                     a.setPath(currentDirectory.getPath()+"/"+a.getName());
                     updatePath(a);
                 });
+    }
+
+    private FileData findFile(FileData currentDirectory, String path) {
+        for (FileData fileData : currentDirectory.getContents()) {
+            if (Objects.equals(fileData.getPath(), path)) {
+                return fileData;
+            }
+            FileData found = findFile(fileData, path);
+            if (found != null) {
+                return found;
+            }
+        }
+        return null;
     }
 
 

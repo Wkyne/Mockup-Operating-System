@@ -24,5 +24,14 @@ public class FileData {
 
     private ArrayList<FileData> contents;
 
+    public void setTo(FileData fileData) {
+        this.id = fileData.id;
+        this.name = fileData.name;
+        this.type = fileData.type;
+        this.text = fileData.text;
+        this.path = fileData.path;
+        this.parent = fileData.parent;
+        this.contents = fileData.contents;
+    }
 }
 
