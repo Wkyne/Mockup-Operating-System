@@ -26,21 +26,24 @@ public class TerminalController {
     VBox terminalContents;
 
     @FXML
-    public void enterCommand(KeyEvent event) {
+    public void inputLineType(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             String command = windowInstance.getInputLine().getText();
             windowInstance.getInputLine().setText("");
             readInputLine(command);
+            return;
         }
     }
 
     public void readInputLine(String command) {
         String path = windowInstance.getCurrentPath().getText();
         Label commandLabel = new Label(path + command);
+        commandLabel.setWrapText(false);
         int nextIndex = terminalContents.getChildren().size() - 1;
         if (!command.isEmpty()) {
             String result = windowInstance.parseCommand(command);
             Label commandResult = new Label(result);
+            commandResult.setWrapText(false);
             terminalContents.getChildren().add(nextIndex, commandResult);
             Platform.runLater(()->{
                 terminaRoot.setVvalue(1.0);

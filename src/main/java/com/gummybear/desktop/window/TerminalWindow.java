@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -54,11 +55,19 @@ public class TerminalWindow extends Window {
         inputLine.getStyleClass().add("command-line-input");
         currentPath.getStylesheets().add(getClass().getResource("/com/gummybear/style/terminal.css").toExternalForm());
         currentPath.getStyleClass().add("command-line-path");
-        inputLineContainer.getChildren().addAll(currentPath, inputLine);
+
+        inputLine.textProperty().addListener((obs, oldText, newText) -> {
+            Text text = new Text();
+            text.setFont(inputLine.getFont());
+            text.setText(newText.isEmpty() ? " " : newText);
+            double newWidth = text.getLayoutBounds().getWidth() + 100; // padding
+            inputLine.setPrefWidth(newWidth);
+        });
 
         HBox.setHgrow(inputLine, Priority.ALWAYS);
 
         VBox terminalContent = terminalController.getTerminalContents();
+        inputLineContainer.getChildren().addAll(currentPath, inputLine);
         terminalContent.getChildren().add(inputLineContainer);
 
         controller.getWindowRoot().setCenter(terminalRoot);
@@ -120,7 +129,7 @@ public class TerminalWindow extends Window {
                 move [<foldername>] - Moves to an existing directory
                 open [<filename>] - Opens an existing file in the current directory
                 remove [<name>] - Deletes an existing file or folder
-                rename [<name1>] [<name2>] - Replaces the name of an existing file or forder with a new one
+                rename [<name1>] [<name2>] - Replaces the name of an existing file or folder with a new one
                 run [<scriptname>] - Runs an existing script file in the current directory
                 """;
     }
