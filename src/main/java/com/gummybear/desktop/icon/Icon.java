@@ -23,6 +23,7 @@ public class Icon {
     Label nameLabel;
     ImageView iconImage;
     VBox iconVBox;
+    FileData data;
 
     Window window;
 
@@ -30,9 +31,9 @@ public class Icon {
     final double[] dragDelta = new double[2];
 
     public Icon(String name, Boolean isFile) {
-        FileData data = new FileData()
+        data = new FileData()
             .setName(name)
-            .setPath("root/desktop")
+            .setPath("root/desktop/" + name)
             .setText("")
             .setContents(null);
 
