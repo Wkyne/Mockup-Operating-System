@@ -23,12 +23,12 @@ public class ContextMenuController {
 
     @FXML
     public void createNewFile() {
-       new Icon("test",true);
+       new Icon("NewFile",true);
     }
 
     @FXML
     public void createNewFolder() {
-       new Icon("test",false);
+       new Icon("NewFolder",false);
     }
 
     @FXML

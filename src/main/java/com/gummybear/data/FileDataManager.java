@@ -41,10 +41,10 @@ public class FileDataManager {
         } catch (IOException ignored) {}
     }
 
-
+    //TODO turn nameExists into just newFile.setName(newFile.getName + "(1)")
     public String createFile(FileData currentDirectory, FileData newFile) {
         boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newFile.getName()));
-        if (nameExists) return newFile.getName() + " Is Already Taken";
+        if (nameExists) return "[Failed] " + newFile.getName() + " Is Already Taken";
         currentDirectory.getContents().add(newFile);
         saveRootDirectory();
         return "Created File: " + newFile.getName();
@@ -52,7 +52,7 @@ public class FileDataManager {
 
     public String createFolder(FileData currentDirectory, FileData newFolder) {
         boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newFolder.getName()));
-        if (nameExists) return newFolder.getName() + " Is Already Taken";
+        if (nameExists) return "[Failed] " + newFolder.getName() + " Is Already Taken";
         currentDirectory.getContents().add(newFolder);
         saveRootDirectory();
         return "Created Folder: " + newFolder.getName();
