@@ -1,6 +1,8 @@
 package com.gummybear.desktop.icon;
 
 import com.gummybear.data.FileData;
+import com.gummybear.data.FileDataManager;
+import com.gummybear.data.FileDataTree;
 import com.gummybear.desktop.Desktop;
 import com.gummybear.desktop.window.Window;
 import javafx.geometry.Point2D;
@@ -8,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import lombok.AllArgsConstructor;
@@ -18,48 +19,56 @@ import lombok.Data;
 @Data
 public class Icon {
 
-    String name;
+    FileData data;
+
     Point2D position;
     Label nameLabel;
     ImageView iconImage;
     VBox iconVBox;
-    FileData data;
 
     Window window;
 
     int size;
+
     final double[] dragDelta = new double[2];
 
     public Icon(String name, Boolean isFile) {
         data = new FileData()
             .setName(name)
             .setPath("root/desktop/" + name)
-            .setText("")
-            .setContents(null);
+            .setText("");
+
+        //TODO: Rework position -> grid 
 
         position = new Point2D(0,0);
-
         iconImage = new ImageView();
         iconImage.getStyleClass().add("icon");
-
-        nameLabel = new Label(name);
-        nameLabel.setTextFill(Color.WHITE);
-        nameLabel.setAlignment(Pos.CENTER);
-
         iconVBox = new VBox();
         Desktop desktop = Desktop.getInstance();
 
         size = desktop.getDesktopWidth() / desktop.getIconSize().getSize();
-        // id = desktop.getNextIconID();
-        // desktop.setNextIconID(id+1); //dk abt this one
+        FileDataManager fdm = FileDataManager.getInstance();
+        FileData desktopData = fdm.findDirectory(FileDataTree.getRootDirectory(), "root/desktop");
 
         if(isFile) {
             data.setType("file");
             iconImage.setImage(new Image(getClass().getResource("/com/gummybear/images/file-icon.png").toExternalForm()));
+            while(fdm.createFile(desktopData, data).contains("Failed")){
+                data.setName(data.getName()+"I")
+                    .setPath("root/desktop/" + data.getName());
+            }
         }else{
             data.setType("folder");
             iconImage.setImage(new Image(getClass().getResource("/com/gummybear/images/folder-icon.png").toExternalForm()));
+            while(fdm.createFolder(desktopData, data).contains("Failed")){
+                data.setName(data.getName()+"I")
+                    .setPath("root/desktop/" + data.getName());
+            }
         }
+
+        nameLabel = new Label(data.getName());
+        nameLabel.setTextFill(Color.WHITE);
+        nameLabel.setAlignment(Pos.CENTER);
 
         iconVBox.getChildren().addAll(iconImage, nameLabel);
         desktop.getIconArrayList().add(this);
@@ -81,6 +90,32 @@ public class Icon {
 //            iconVBox.setLayoutY(snappedY);
 //            System.out.println("[INFO] Icon" + id + " Snapped To: X=" + snappedX + " Y=" + snappedY);
 //        });
+    }
+
+    public Icon(FileData fileData){
+        data = fileData;
+        position = new Point2D(0,0);
+        iconImage = new ImageView();
+        iconImage.getStyleClass().add("icon");
+        iconVBox = new VBox();
+        Desktop desktop = Desktop.getInstance();
+        size = desktop.getDesktopWidth() / desktop.getIconSize().getSize();
+
+        if(data.getType().equals("file")) {
+            data.setType("file");
+            iconImage.setImage(new Image(getClass().getResource("/com/gummybear/images/file-icon.png").toExternalForm()));
+        }else{
+            data.setType("folder");
+            iconImage.setImage(new Image(getClass().getResource("/com/gummybear/images/folder-icon.png").toExternalForm()));
+        }
+
+        nameLabel = new Label(data.getName());
+        nameLabel.setTextFill(Color.WHITE);
+        nameLabel.setAlignment(Pos.CENTER);
+
+        iconVBox.getChildren().addAll(iconImage, nameLabel);
+        desktop.getIconArrayList().add(this);
+        desktop.refresh();
     }
 
 }
