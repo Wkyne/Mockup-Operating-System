@@ -98,7 +98,6 @@ public class AppController {
                     if (vboxBounds.contains(event.getSceneX(), event.getSceneY())) {
                         desktop.getSelectedIconsArrayList().add(icon);
                         icon.getIconVBox().getStyleClass().add("icon-selected");
-                        System.out.println("[INFO] Icon" + icon.getId() + " Added to Selected Icons");
                         hoveringOnIcon = true;
                         icon.getDragDelta()[0] = event.getSceneX() - icon.getIconVBox().getLayoutX();
                         icon.getDragDelta()[1] = event.getSceneY() - icon.getIconVBox().getLayoutY();
@@ -189,7 +188,6 @@ public class AppController {
                             if (!desktop.getSelectedIconBuffer().contains(icon)) {
                                 desktop.getSelectedIconBuffer().add(icon);
                                 icon.getIconVBox().getStyleClass().add("icon-selected");
-                                System.out.println("[INFO] Icon" + icon.getId() + " Added to Selected Icons");
                             }
                         } else {
                             if (desktop.getSelectedIconBuffer().contains(icon)) {
@@ -216,7 +214,6 @@ public class AppController {
                 double snappedY = desktop.getDesktopPadding() + Math.round((icon.getIconVBox().getLayoutY() - desktop.getDesktopPadding()) / (icon.getSize()+offsetY)) * (icon.getSize()+offsetY);
                 icon.getIconVBox().setLayoutX(snappedX);
                 icon.getIconVBox().setLayoutY(snappedY);
-                System.out.println("[INFO] Icon" + icon.getId() + " Snapped To: X=" + snappedX + " Y=" + snappedY);
             }
 
             boolean selectionBoxExists = desktopPane.getChildren().contains(desktop.getSelectionBox());

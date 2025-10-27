@@ -18,7 +18,6 @@ import lombok.Data;
 @Data
 public class Icon {
 
-    int id;
     String name;
     Point2D position;
     Label nameLabel;
@@ -32,7 +31,6 @@ public class Icon {
 
     public Icon(String name, Boolean isFile) {
         FileData data = new FileData()
-            .setId(id)
             .setName(name)
             .setPath("root/desktop")
             .setText("")
@@ -51,8 +49,8 @@ public class Icon {
         Desktop desktop = Desktop.getInstance();
 
         size = desktop.getDesktopWidth() / desktop.getIconSize().getSize();
-        id = desktop.getNextIconID();
-        desktop.setNextIconID(id+1); //dk abt this one
+        // id = desktop.getNextIconID();
+        // desktop.setNextIconID(id+1); //dk abt this one
 
         if(isFile) {
             data.setType("file");
