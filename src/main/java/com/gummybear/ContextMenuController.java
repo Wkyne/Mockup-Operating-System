@@ -100,11 +100,14 @@ public class ContextMenuController {
 
     @FXML
     public void deleteIcon() {
+        FileData desktopDir = FileDataTree.getRootDirectory().getContents().stream().filter(a->a.getName().equals("desktop")).findFirst().get();
         Desktop desktop = Desktop.getInstance();
         if (!desktop.getSelectedIconsArrayList().isEmpty()) {
             System.out.println("[INFO] Deleted Icons:");
             for (Icon icon : desktop.getSelectedIconsArrayList()) {
                 System.out.println("[INFO] " + icon.toString());
+                FileDataManager manager = FileDataManager.getInstance();
+                manager.deleteItem(desktopDir, icon.getData().getName());
             }
 
             Pane desktopPane = (Pane) contextMenuRoot.getParent();
