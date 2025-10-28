@@ -97,6 +97,11 @@ public class ContextMenuController {
 
         System.out.println("[INFO] Changed Icon Size to LARGE");
     }
+    @FXML
+    public void refresh() {
+        Desktop desktop = Desktop.getInstance();
+        desktop.refresh();
+    }
 
     @FXML
     public void deleteIcon() {

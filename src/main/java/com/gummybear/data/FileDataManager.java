@@ -2,6 +2,7 @@ package com.gummybear.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.gummybear.desktop.icon.Icon;
 import javafx.scene.control.Label;
 
 import java.io.*;
@@ -46,6 +47,9 @@ public class FileDataManager {
         boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newFile.getName()));
         if (nameExists) return "[Failed] " + newFile.getName() + " Is Already Taken";
         currentDirectory.getContents().add(newFile);
+        if (currentDirectory.getName().equals("desktop")) {
+            new Icon(newFile);
+        }
         saveRootDirectory();
         return "Created File: " + newFile.getName();
     }
@@ -54,6 +58,9 @@ public class FileDataManager {
         boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newFolder.getName()));
         if (nameExists) return "[Failed] " + newFolder.getName() + " Is Already Taken";
         currentDirectory.getContents().add(newFolder);
+        if (currentDirectory.getName().equals("desktop")) {
+            new Icon(newFolder);
+        }
         saveRootDirectory();
         return "Created Folder: " + newFolder.getName();
     }
