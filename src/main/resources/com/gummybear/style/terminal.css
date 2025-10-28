@@ -2,7 +2,6 @@
 .command-line {
     -fx-background-color: #1e1e1e;
     -fx-background-insets: 0;
-    -fx-fit-to-width: true;
 }
 
 /* Remove default ScrollPane background */
@@ -66,9 +65,6 @@
     -fx-font-family: "Consolas", "Courier New", monospace;
     -fx-font-size: 13px;
     -fx-text-fill: white;
-
-    /*-fx-border-width: 1;*/
-    /*-fx-border-color: red;*/
 }
 
 /* Command line input field (TextField) */
@@ -84,9 +80,6 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-max-width: infinity;
-
-    /*-fx-border-width: 1;*/
-    /*-fx-border-color: red;*/
 }
 
 /* Remove focus ring entirely */

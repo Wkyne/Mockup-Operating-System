@@ -1,8 +1,11 @@
 package com.gummybear.desktop;
 
-import com.gummybear.desktop.icon.Icon;
-import com.gummybear.desktop.icon.IconSize;
+import com.gummybear.data.FileData;
+import com.gummybear.data.FileDataTree;
+import com.gummybear.desktop.icon.*;
 import com.gummybear.desktop.window.Window;
+
+import javafx.application.Platform;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -58,6 +61,20 @@ public class Desktop {
             currentDesktopInstance.addBackground("desktop-background4.jpg");
             currentDesktopInstance.addBackground("desktop-background5.jpg");
             currentDesktopInstance.addBackground("desktop-background6.jpg");
+            Platform.runLater(()->{
+                ArrayList<FileData> desktopContents = null;
+                for(FileData data : FileDataTree.getRootDirectory().getContents()){
+                    System.out.println("Searching:" + data.getPath());
+                    if(data.getPath().equals("root/desktop")){
+                        desktopContents = data.getContents();
+                        for(FileData desktopData : desktopContents){
+                            new Icon(desktopData);
+                        }
+                        break;
+                    }
+                }
+                Desktop.getInstance().refresh();
+            });
         }
         return currentDesktopInstance;
     }

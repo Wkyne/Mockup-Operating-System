@@ -2,6 +2,8 @@ package com.gummybear.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.gummybear.desktop.icon.Icon;
+import javafx.scene.control.Label;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -40,19 +42,25 @@ public class FileDataManager {
         } catch (IOException ignored) {}
     }
 
-
+    //TODO turn nameExists into just newFile.setName(newFile.getName + "(1)")
     public String createFile(FileData currentDirectory, FileData newFile) {
         boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newFile.getName()));
-        if (nameExists) return newFile.getName() + " Is Already Taken";
+        if (nameExists) return "[Failed] " + newFile.getName() + " Is Already Taken";
         currentDirectory.getContents().add(newFile);
+        if (currentDirectory.getName().equals("desktop")) {
+            new Icon(newFile);
+        }
         saveRootDirectory();
         return "Created File: " + newFile.getName();
     }
 
     public String createFolder(FileData currentDirectory, FileData newFolder) {
         boolean nameExists = currentDirectory.getContents().stream().anyMatch(a -> Objects.equals(a.getName(), newFolder.getName()));
-        if (nameExists) return newFolder.getName() + " Is Already Taken";
+        if (nameExists) return "[Failed] " + newFolder.getName() + " Is Already Taken";
         currentDirectory.getContents().add(newFolder);
+        if (currentDirectory.getName().equals("desktop")) {
+            new Icon(newFolder);
+        }
         saveRootDirectory();
         return "Created Folder: " + newFolder.getName();
     }
@@ -87,6 +95,34 @@ public class FileDataManager {
         return oldName + " Not Found";
     }
 
+    public FileData findDirectory(FileData currentDirectory, String path) {
+
+        System.out.println("[INFO] Searching for: " + (currentDirectory.getPath()+"/"+path));
+
+        // Search for path
+        if (path.contains("/")) {
+            if (path.contains("root")) {
+                return findFile(FileDataTree.getRootDirectory(), path);
+            }
+            while (path.startsWith("../")) {
+                if (currentDirectory == FileDataTree.getRootDirectory()) return null;
+                currentDirectory = currentDirectory.getParent();
+                path = path.replaceFirst("../", "");
+            }
+            return findFile(currentDirectory, currentDirectory.getPath()+"/"+path);
+        }
+
+        // Search for children
+        String finalPath = path;
+        Optional<FileData> childFile = currentDirectory
+                .getContents()
+                .stream()
+                .filter(a -> Objects.equals(a.getName(), finalPath))
+                .findFirst();
+        return childFile.orElse(null);
+
+    }
+
     private void assignParent(FileData fileData) {
         fileData.getContents().stream().forEach(a -> {
             a.setParent(fileData);
@@ -101,6 +137,19 @@ public class FileDataManager {
                     a.setPath(currentDirectory.getPath()+"/"+a.getName());
                     updatePath(a);
                 });
+    }
+
+    private FileData findFile(FileData currentDirectory, String path) {
+        for (FileData fileData : currentDirectory.getContents()) {
+            if (Objects.equals(fileData.getPath(), path)) {
+                return fileData;
+            }
+            FileData found = findFile(fileData, path);
+            if (found != null) {
+                return found;
+            }
+        }
+        return null;
     }
 
 

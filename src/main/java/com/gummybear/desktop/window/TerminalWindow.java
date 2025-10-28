@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -27,10 +28,9 @@ public class TerminalWindow extends Window {
     TextField inputLine = new TextField();
     Label currentPath = new Label(currentDirectory.getPath() + "> ");
     HBox inputLineContainer = new HBox();
-    private void moveDirectory(FileData newDirectory) {
-        currentDirectory = newDirectory;
-        inputLineContainer.getChildren().stream().filter(a -> a.getClass() == Label.class).findFirst().map(a -> (Label)a).get().setText(currentDirectory.getPath() + "> ");
-        currentPath = new Label(currentDirectory.getPath() + "> ");
+
+    private void updateCurrentPathLabel() {
+        currentPath.setText(currentDirectory.getPath() + "> ");
     }
 
     public TerminalWindow() {
@@ -50,13 +50,19 @@ public class TerminalWindow extends Window {
             throw new RuntimeException(e);
         }
 
+        HBox.setHgrow(inputLine, Priority.ALWAYS);
         inputLine.getStylesheets().add(getClass().getResource("/com/gummybear/style/terminal.css").toExternalForm());
         inputLine.getStyleClass().add("command-line-input");
+        inputLine.textProperty().addListener((obs, oldText, newText) -> {
+            Text text = new Text();
+            text.setFont(inputLine.getFont());
+            text.setText(newText.isEmpty() ? " " : newText);
+            double newWidth = text.getLayoutBounds().getWidth() + 100; // padding
+            inputLine.setPrefWidth(newWidth);
+        });
         currentPath.getStylesheets().add(getClass().getResource("/com/gummybear/style/terminal.css").toExternalForm());
         currentPath.getStyleClass().add("command-line-path");
         inputLineContainer.getChildren().addAll(currentPath, inputLine);
-
-        HBox.setHgrow(inputLine, Priority.ALWAYS);
 
         VBox terminalContent = terminalController.getTerminalContents();
         terminalContent.getChildren().add(inputLineContainer);
@@ -93,23 +99,22 @@ public class TerminalWindow extends Window {
                 default -> "Unknown Error Encountered";
             };
         } else {
-            return "Unknown Command \"" + commandWord + "\"";
+            return "Unknown Command: " + commandWord;
         }
     }
 
     private String helloCommand(String[] tokenArray) {
         int tokenAmount = tokenArray.length;
-        if (tokenAmount-1 == 0) {
-            return "world";
-        } else {
-            return "Parameter Mismatch: Expecting 0, Found " + tokenAmount;
+        if (tokenAmount-1 != 0) {
+            return "Parameter Mismatch: Expecting 0, Found " + (tokenAmount-1);
         }
+        return "world";
     }
 
     private String helpCommand(String[] tokenArray) {
         int tokenAmount = tokenArray.length;
         if (tokenAmount-1 != 0) {
-            return "Parameter Mismatch: Expecting 0, Found " + tokenAmount;
+            return "Parameter Mismatch: Expecting 0, Found " + (tokenAmount-1);
         }
 
         return """
@@ -120,7 +125,7 @@ public class TerminalWindow extends Window {
                 move [<foldername>] - Moves to an existing directory
                 open [<filename>] - Opens an existing file in the current directory
                 remove [<name>] - Deletes an existing file or folder
-                rename [<name1>] [<name2>] - Replaces the name of an existing file or forder with a new one
+                rename [<name1>] [<name2>] - Replaces the name of an existing file or folder with a new one
                 run [<scriptname>] - Runs an existing script file in the current directory
                 """;
     }
@@ -136,14 +141,14 @@ public class TerminalWindow extends Window {
             }
             return (directory.toString().isEmpty())? "Empty Directory" : directory.toString();
         } else {
-            return "Parameter Mismatch: Expecting 0, Found " + tokenAmount;
+            return "Parameter Mismatch: Expecting 0, Found " + (tokenAmount-1);
         }
     }
 
     private String createCommand(String[] tokenArray) {
         int tokenAmount = tokenArray.length;
         if (tokenAmount-1 != 2) {
-            return "Parameter Mismatch: Expecting 2, Found " + tokenAmount;
+            return "Parameter Mismatch: Expecting 2, Found " + (tokenAmount-1);
         }
 
         boolean invalidArgument = !(Objects.equals(tokenArray[1], "file") || Objects.equals(tokenArray[1], "folder"));
@@ -169,7 +174,7 @@ public class TerminalWindow extends Window {
     private String removeCommand(String[] tokenArray) {
         int tokenAmount = tokenArray.length;
         if (tokenAmount-1 != 1) {
-            return "Parameter Mismatch: Expecting 1, Found " + tokenAmount;
+            return "Parameter Mismatch: Expecting 1, Found " + (tokenAmount-1);
         }
 
         FileDataManager manager = FileDataManager.getInstance();
@@ -179,29 +184,32 @@ public class TerminalWindow extends Window {
     private String moveCommand(String[] tokenArray) {
         int tokenAmount = tokenArray.length;
         if (tokenAmount-1 != 1) {
-            return "Parameter Mismatch: Expecting 1, Found " + tokenAmount;
+            return "Parameter Mismatch: Expecting 1, Found " + (tokenAmount-1);
         }
 
+        FileDataManager manager = FileDataManager.getInstance();
+
         if (Objects.equals(tokenArray[1], "..")) {
-            moveDirectory(currentDirectory.getParent());
+            if (currentDirectory == FileDataTree.getRootDirectory()) return "Illegal Argument: Root Has No Parent";
+            currentDirectory = currentDirectory.getParent();
+            updateCurrentPathLabel();
             return "Moved to Folder: " + currentDirectory.getName();
         }
 
-        Optional<FileData> optionalFile = currentDirectory.getContents().stream().filter(a -> Objects.equals(a.getName(), tokenArray[1])).findFirst();
-        FileData file = null;
-        if (optionalFile.isPresent()) {
-            file = optionalFile.get();
-            moveDirectory(file);
-            return "Moved to Folder: " + file.getName();
-        } else {
+        FileData newDirectory = manager.findDirectory(currentDirectory, tokenArray[1]);
+        if (newDirectory == null) {
+            System.out.println(newDirectory);
             return tokenArray[1] + " Not Found";
         }
+        currentDirectory = newDirectory;
+        updateCurrentPathLabel();
+        return "Moved to Folder: " + currentDirectory.getName();
     }
 
     private String openCommand(String[] tokenArray) {
         int tokenAmount = tokenArray.length;
         if (tokenAmount-1 != 1) {
-            return "Parameter Mismatch: Expecting 1, Found " + tokenAmount;
+            return "Parameter Mismatch: Expecting 1, Found " + (tokenAmount-1);
         }
 
         Optional<FileData> optionalFile = currentDirectory.getContents().stream().filter(a -> Objects.equals(a.getName(), tokenArray[1])).findFirst();
@@ -230,7 +238,7 @@ public class TerminalWindow extends Window {
     private String runCommand(String[] tokenArray) {
         int tokenAmount = tokenArray.length;
         if (tokenAmount-1 != 1) {
-            return "Parameter Mismatch: Expecting 1, Found " + tokenAmount;
+            return "Parameter Mismatch: Expecting 1, Found " + (tokenAmount-1);
         }
 
         Optional<FileData> optionalFile = currentDirectory.getContents().stream().filter(a -> Objects.equals(a.getName(), tokenArray[1])).findFirst();
@@ -253,7 +261,7 @@ public class TerminalWindow extends Window {
     private String renameCommand(String[] tokenArray) {
         int tokenAmount = tokenArray.length;
         if (tokenAmount-1 != 2) {
-            return "Parameter Mismatch: Expecting 2, Found " + tokenAmount;
+            return "Parameter Mismatch: Expecting 2, Found " + (tokenAmount-1);
         }
 
         FileDataManager manager = FileDataManager.getInstance();

@@ -1,5 +1,8 @@
 package com.gummybear;
 
+import com.gummybear.data.FileData;
+import com.gummybear.data.FileDataManager;
+import com.gummybear.data.FileDataTree;
 import com.gummybear.desktop.Desktop;
 import com.gummybear.desktop.explorer.Explorer;
 import com.gummybear.desktop.terminal.Terminal;
@@ -15,6 +18,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 
+import java.util.ArrayList;
+
 @Getter
 public class ContextMenuController {
 
@@ -23,26 +28,41 @@ public class ContextMenuController {
 
     @FXML
     public void createNewFile() {
-//        Icon icon = new FileIcon();
-//        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/document-icon.png")).toExternalForm());
-//        icon.getIconImage().setImage(image);
-//        icon.getIconVBox().getStyleClass().add("icon");
-//
-//        Desktop desktop = Desktop.getInstance();
-//        desktop.getIconArrayList().add(icon);
-//        desktop.render();
+        FileData desktop = FileDataTree.getRootDirectory().getContents().stream().filter(a->a.getName().equals("desktop")).findFirst().get();
+
+        FileData fileData = new FileData();
+        fileData.setName("NewFile");
+        fileData.setType("file");
+        fileData.setText("");
+        fileData.setPath("root/desktop/"+fileData.getName());
+        fileData.setParent(desktop);
+        fileData.setContents(new ArrayList<>());
+        FileDataManager manager = FileDataManager.getInstance();
+        while(manager.createFile(desktop, fileData).contains("Failed")){
+            fileData.setName(fileData.getName()+"I")
+                    .setPath("root/desktop/" + fileData.getName());
+        }
+        new Icon(fileData);
     }
 
     @FXML
     public void createNewFolder() {
-//        Icon icon = new FolderIcon();
-//        Image image = new Image(Objects.requireNonNull(getClass().getResource("/com/gummybear/images/folder-icon.png")).toExternalForm());
-//        icon.getIconImage().setImage(image);
-//        icon.getIconImage().getStyleClass().add("icon");
-//
-//        Desktop desktop = Desktop.getInstance();
-//        desktop.getIconArrayList().add(icon);
-//        desktop.render();
+        FileData desktop = FileDataTree.getRootDirectory().getContents().stream().filter(a->a.getName().equals("desktop")).findFirst().get();
+
+        FileData fileData = new FileData();
+        fileData.setName("NewFolder");
+        fileData.setType("folder");
+        fileData.setText("");
+        fileData.setPath("root/desktop/"+fileData.getName());
+        fileData.setParent(desktop);
+        fileData.setContents(new ArrayList<>());
+        FileDataManager manager = FileDataManager.getInstance();
+        while(manager.createFile(desktop, fileData).contains("Failed")){
+            fileData.setName(fileData.getName()+"I")
+                    .setPath("root/desktop/" + fileData.getName());
+        }
+
+        new Icon(fileData);
     }
 
     @FXML
@@ -77,14 +97,22 @@ public class ContextMenuController {
 
         System.out.println("[INFO] Changed Icon Size to LARGE");
     }
+    @FXML
+    public void refresh() {
+        Desktop desktop = Desktop.getInstance();
+        desktop.refresh();
+    }
 
     @FXML
     public void deleteIcon() {
+        FileData desktopDir = FileDataTree.getRootDirectory().getContents().stream().filter(a->a.getName().equals("desktop")).findFirst().get();
         Desktop desktop = Desktop.getInstance();
         if (!desktop.getSelectedIconsArrayList().isEmpty()) {
             System.out.println("[INFO] Deleted Icons:");
             for (Icon icon : desktop.getSelectedIconsArrayList()) {
                 System.out.println("[INFO] " + icon.toString());
+                FileDataManager manager = FileDataManager.getInstance();
+                manager.deleteItem(desktopDir, icon.getData().getName());
             }
 
             Pane desktopPane = (Pane) contextMenuRoot.getParent();

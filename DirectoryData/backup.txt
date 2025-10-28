@@ -11,16 +11,7 @@
       "type": "folder",
       "text": "",
       "path": "root/desktop",
-      "contents": [
-        {
-          "id": 0,
-          "name": "file.script",
-          "type": "file",
-          "text": "create file file1\ncreate file file2\ncreate file file3\ncreate file file4\ncreate file file5\ncreate file file6\ncreate file file7\ncreate file file8\ncreate file file9\ncreate file file10",
-          "path": "root/desktop/file.script",
-          "contents": []
-        }
-      ]
+      "contents": []
     },
     {
       "id": 0,
@@ -523,7 +514,7 @@
               "id": 0,
               "name": "assignment10",
               "type": "file",
-              "text": "hello world",
+              "text": "",
               "path": "root/documents/assignment/assignment10",
               "contents": []
             },

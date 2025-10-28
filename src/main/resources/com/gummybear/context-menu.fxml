@@ -48,6 +48,11 @@
          <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
       </padding>
    </Label>
+   <Label maxWidth="1.7976931348623157E308" onMouseClicked="#refresh" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Refresh">
+      <padding>
+         <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
+      </padding>
+   </Label>
    <Label maxWidth="1.7976931348623157E308" onMouseClicked="#deleteIcon" styleClass="context-menu-button" stylesheets="@style/context-menu.css" text="Delete">
       <padding>
          <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />

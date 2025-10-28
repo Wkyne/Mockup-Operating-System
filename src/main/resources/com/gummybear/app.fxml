@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gummybear.AppController">
@@ -12,7 +11,4 @@
             <Insets />
          </BorderPane.margin></Pane>
    </center>
-   <bottom>
-      <HBox prefHeight="40.0" style="-fx-background-color: rgb(70, 70, 120);" BorderPane.alignment="CENTER" />
-   </bottom>
 </BorderPane>
