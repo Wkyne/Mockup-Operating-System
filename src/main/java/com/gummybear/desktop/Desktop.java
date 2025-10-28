@@ -107,7 +107,7 @@ public class Desktop {
         setBackground(backgroundImageArrayList.get(0));
     }
 
-    private ContextMenu contextMenu = new ContextMenu();
+    private ContextMenu contextMenu;
     private ArrayList<Icon> iconArrayList = new ArrayList<>();
     private ArrayList<Window> windowArrayList = new ArrayList<>();
     private Pane desktopPane;

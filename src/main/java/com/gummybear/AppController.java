@@ -1,6 +1,8 @@
 package com.gummybear;
 
 import com.gummybear.data.FileDataManager;
+import com.gummybear.data.FileDataTree;
+import com.gummybear.desktop.ContextMenu;
 import com.gummybear.desktop.Desktop;
 import com.gummybear.desktop.icon.Icon;
 import com.gummybear.desktop.window.Window;
@@ -33,6 +35,16 @@ public class AppController {
         try {
             FXMLLoader contextMenuLoader = new FXMLLoader(getClass().getResource("/com/gummybear/context-menu.fxml"));
             contextMenuUI = contextMenuLoader.load();
+
+            ContextMenuController controller = contextMenuLoader.getController();
+
+            final FileData desktopDirectory = FileDataTree.getRootDirectory().getContents().stream().filter(a->a.getName().equals("desktop")).findFirst().get();
+            ContextMenu desktopContextMenu = new ContextMenu(desktopDirectory);
+            desktopContextMenu.setController(controller);
+            Desktop.getInstance().setContextMenu(desktopContextMenu);
+
+            controller.setContextMenuInstance(desktopContextMenu);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
