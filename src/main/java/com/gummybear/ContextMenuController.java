@@ -1,5 +1,8 @@
 package com.gummybear;
 
+import com.gummybear.data.FileData;
+import com.gummybear.data.FileDataManager;
+import com.gummybear.data.FileDataTree;
 import com.gummybear.desktop.Desktop;
 import com.gummybear.desktop.explorer.Explorer;
 import com.gummybear.desktop.terminal.Terminal;
@@ -15,6 +18,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 
+import java.util.ArrayList;
+
 @Getter
 public class ContextMenuController {
 
@@ -23,12 +28,41 @@ public class ContextMenuController {
 
     @FXML
     public void createNewFile() {
-       new Icon("NewFile",true);
+        FileData desktop = FileDataTree.getRootDirectory().getContents().stream().filter(a->a.getName().equals("desktop")).findFirst().get();
+
+        FileData fileData = new FileData();
+        fileData.setName("New File");
+        fileData.setType("file");
+        fileData.setText("");
+        fileData.setPath("root/desktop/"+fileData.getName());
+        fileData.setParent(desktop);
+        fileData.setContents(new ArrayList<>());
+        FileDataManager manager = FileDataManager.getInstance();
+        while(manager.createFile(desktop, fileData).contains("Failed")){
+            fileData.setName(fileData.getName()+"I")
+                    .setPath("root/desktop/" + fileData.getName());
+        }
+        new Icon(fileData);
     }
 
     @FXML
     public void createNewFolder() {
-       new Icon("NewFolder",false);
+        FileData desktop = FileDataTree.getRootDirectory().getContents().stream().filter(a->a.getName().equals("desktop")).findFirst().get();
+
+        FileData fileData = new FileData();
+        fileData.setName("New Folder");
+        fileData.setType("folder");
+        fileData.setText("");
+        fileData.setPath("root/desktop/"+fileData.getName());
+        fileData.setParent(desktop);
+        fileData.setContents(new ArrayList<>());
+        FileDataManager manager = FileDataManager.getInstance();
+        while(manager.createFile(desktop, fileData).contains("Failed")){
+            fileData.setName(fileData.getName()+"I")
+                    .setPath("root/desktop/" + fileData.getName());
+        }
+
+        new Icon(fileData);
     }
 
     @FXML
