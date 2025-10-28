@@ -31,7 +31,7 @@ public class ContextMenuController {
         FileData desktop = FileDataTree.getRootDirectory().getContents().stream().filter(a->a.getName().equals("desktop")).findFirst().get();
 
         FileData fileData = new FileData();
-        fileData.setName("New File");
+        fileData.setName("NewFile");
         fileData.setType("file");
         fileData.setText("");
         fileData.setPath("root/desktop/"+fileData.getName());
@@ -50,7 +50,7 @@ public class ContextMenuController {
         FileData desktop = FileDataTree.getRootDirectory().getContents().stream().filter(a->a.getName().equals("desktop")).findFirst().get();
 
         FileData fileData = new FileData();
-        fileData.setName("New Folder");
+        fileData.setName("NewFolder");
         fileData.setType("folder");
         fileData.setText("");
         fileData.setPath("root/desktop/"+fileData.getName());

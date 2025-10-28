@@ -19,6 +19,14 @@
           "text": "",
           "path": "root/desktop/New File",
           "contents": []
+        },
+        {
+          "id": 0,
+          "name": "New Folder",
+          "type": "folder",
+          "text": "",
+          "path": "root/desktop/New Folder",
+          "contents": []
         }
       ]
     },
