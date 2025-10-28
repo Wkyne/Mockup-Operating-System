@@ -6,18 +6,43 @@ import com.gummybear.desktop.icon.*;
 import com.gummybear.desktop.window.Window;
 
 import javafx.application.Platform;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.layout.*;
 import lombok.*;
 
+
+import javafx.scene.control.Button;
+import javafx.geometry.Pos;
+import javafx.scene.text.TextAlignment;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
+
+
+import com.gummybear.ContextMenuController;
+
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
+
+// import javax.naming.Context;
 
 @Data
 public class Desktop {
@@ -101,6 +126,7 @@ public class Desktop {
         desktopPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             desktopHeight = newVal.intValue();
         });
+        createTaskbar();
     }
 
     private IconSize iconSize = IconSize.MEDIUM;
@@ -151,5 +177,59 @@ public class Desktop {
             desktopPane.getChildren().add(window.getWindowUI());
         }
     }
+
+    private HBox taskbar;
+    private Label dateLabel;
+    private Button fileExplorerButton;
+    private Button terminalButton;
+
+
+    public void createTaskbar() {
+    // Create taskbar layout
+    taskbar = new HBox();
+    taskbar.setStyle("-fx-background-color: rgba(30,30,30,0.9); -fx-padding: 5 15 5 15;");
+    taskbar.setPrefHeight(35);
+    taskbar.setAlignment(Pos.CENTER);
+    taskbar.setSpacing(20);
+
+    // Buttons
+    fileExplorerButton = new Button("📁 File Explorer");
+    terminalButton = new Button("💻 Terminal");
+
+    fileExplorerButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
+    terminalButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
+
+    // Date label (right side)
+    dateLabel = new Label();
+    dateLabel.setStyle("-fx-text-fill: white; -fx-font-size: 12px;");
+    dateLabel.setTextAlignment(TextAlignment.RIGHT);
+
+    // Live clock update
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, MMM d  HH:mm");
+    Timeline clock = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+        dateLabel.setText(LocalDateTime.now().format(formatter));
+    }));
+    clock.setCycleCount(Animation.INDEFINITE);
+    clock.play();
+
+    // Create flexible spacing
+    Region leftSpacer = new Region();
+    Region rightSpacer = new Region();
+    HBox.setHgrow(leftSpacer, Priority.ALWAYS);
+    HBox.setHgrow(rightSpacer, Priority.ALWAYS);
+
+    // Add everything (centered buttons + right date)
+    taskbar.getChildren().addAll(leftSpacer, fileExplorerButton, terminalButton, rightSpacer, dateLabel);
+
+    // Bind to bottom of desktop
+    taskbar.layoutYProperty().bind(desktopPane.heightProperty().subtract(taskbar.heightProperty()));
+    taskbar.prefWidthProperty().bind(desktopPane.widthProperty());
+    ContextMenuController contextMenuController = new ContextMenuController();
+    fileExplorerButton.setOnAction(e -> contextMenuController.openFileExplorer());
+    terminalButton.setOnAction(e -> contextMenuController.openTerminal());
+
+    desktopPane.getChildren().add(taskbar);
+}
+
 
 }
