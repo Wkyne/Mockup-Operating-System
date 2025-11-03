@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @Getter
 public class WindowController {
-
+    private boolean minimized = false;
     @Setter
     private Window windowInstance;
 
@@ -38,11 +38,21 @@ public class WindowController {
     @FXML
     public void minimizeWindow() {
         System.out.println("[INFO] Minimized Window");
+        windowInstance.minimize();
     }
-
+    
+    @FXML
+    public void restoreWindow() {
+        System.out.println("[INFO] Restored Window");
+        windowInstance.restore();
+    }
+    
     @FXML
     public void maximizeWindow() {
-        System.out.println("[INFO] Maximized Window");
+        Desktop desktop = Desktop.getInstance();
+        System.out.println("[INFO] " + (windowInstance.isMaximized() ? "Unmaximized" : "Maximized") + " Window: " + windowInstance.getName());
+        windowInstance.maximize(desktop.getDesktopPane());
+        windowMaximizeButton.setText(windowInstance.isMaximized() ? "🗗" : "🗖");
     }
 
     @FXML
@@ -50,7 +60,7 @@ public class WindowController {
         System.out.println("[INFO] Exited Window");
         Desktop desktop = Desktop.getInstance();
         desktop.getWindowArrayList().remove(windowInstance);
-        desktop.getDesktopPane().getChildren().remove(windowInstance.getWindowUI());
+        desktop.getDesktopPane().getChildren().remove(windowInstance.getWrapper());
     }
 
 }

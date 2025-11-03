@@ -33,7 +33,7 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 
-
+import com.gummybear.desktop.window.Window;
 import com.gummybear.ContextMenuController;
 
 
@@ -178,33 +178,56 @@ public class Desktop {
         }
     }
 
+    // helper functions
+    public void toggleOrCreateWindow(String title, Runnable createWindowAction) {
+        Window existingWindow = getWindowByTitle(title);
+
+        if (existingWindow != null) {
+            if (existingWindow.isMinimized()) {
+                existingWindow.restore();
+            } else {
+                existingWindow.minimize();
+            }
+        } else {
+            createWindowAction.run();
+        }
+    }
+
+    public Window getWindowByTitle(String title) {
+        for (Window w : windowArrayList) {
+            if (w.getName() != null && w.getName().equalsIgnoreCase(title)) {
+                return w;
+            }
+        }
+        return null;
+    }
+
+
+
+
+    // Taskbar n shizzle
+
     private HBox taskbar;
     private Label dateLabel;
     private Button fileExplorerButton;
     private Button terminalButton;
 
-
     public void createTaskbar() {
-    // Create taskbar layout
     taskbar = new HBox();
     taskbar.setStyle("-fx-background-color: rgba(30,30,30,0.9); -fx-padding: 5 15 5 15;");
     taskbar.setPrefHeight(35);
     taskbar.setAlignment(Pos.CENTER);
     taskbar.setSpacing(20);
 
-    // Buttons
     fileExplorerButton = new Button("📁 File Explorer");
     terminalButton = new Button("💻 Terminal");
-
     fileExplorerButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
     terminalButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
 
-    // Date label (right side)
     dateLabel = new Label();
     dateLabel.setStyle("-fx-text-fill: white; -fx-font-size: 12px;");
     dateLabel.setTextAlignment(TextAlignment.RIGHT);
 
-    // Live clock update
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, MMM d  HH:mm");
     Timeline clock = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
         dateLabel.setText(LocalDateTime.now().format(formatter));
@@ -212,21 +235,19 @@ public class Desktop {
     clock.setCycleCount(Animation.INDEFINITE);
     clock.play();
 
-    // Create flexible spacing
     Region leftSpacer = new Region();
     Region rightSpacer = new Region();
     HBox.setHgrow(leftSpacer, Priority.ALWAYS);
     HBox.setHgrow(rightSpacer, Priority.ALWAYS);
 
-    // Add everything (centered buttons + right date)
     taskbar.getChildren().addAll(leftSpacer, fileExplorerButton, terminalButton, rightSpacer, dateLabel);
-
-    // Bind to bottom of desktop
     taskbar.layoutYProperty().bind(desktopPane.heightProperty().subtract(taskbar.heightProperty()));
     taskbar.prefWidthProperty().bind(desktopPane.widthProperty());
+
     ContextMenuController contextMenuController = new ContextMenuController();
-    fileExplorerButton.setOnAction(e -> contextMenuController.openFileExplorer());
-    terminalButton.setOnAction(e -> contextMenuController.openTerminal());
+
+    fileExplorerButton.setOnAction(e -> toggleOrCreateWindow("File Explorer", () -> contextMenuController.openFileExplorer()));
+    terminalButton.setOnAction(e -> toggleOrCreateWindow("Terminal", () -> contextMenuController.openTerminal()));
 
     desktopPane.getChildren().add(taskbar);
 }

@@ -9,6 +9,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import lombok.Data;
 
 import java.io.IOException;
@@ -20,8 +21,9 @@ public class Window {
     String name;
     Point2D position;
     double width, height;
-
+    
     BorderPane windowUI;
+    BorderPane wrapper;
     WindowController controller;
 
     final double[] dragDelta = new double[2];
@@ -39,31 +41,64 @@ public class Window {
         try {
             FXMLLoader windowLoader = new FXMLLoader(getClass().getResource("/com/gummybear/window.fxml"));
             windowUI = windowLoader.load();
-            windowUI.setLayoutX(position.getX());
-            windowUI.setLayoutY(position.getY());
-            windowUI.setPrefWidth(width);
-            windowUI.setPrefHeight(height);
+            // windowUI.setLayoutX(position.getX());
+            // windowUI.setLayoutY(position.getY());
+            // windowUI.setPrefWidth(width);
+            // windowUI.setPrefHeight(height);
+            // windowUI.setPickOnBounds(true);
             controller = windowLoader.getController();
             controller.setWindowInstance(this);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        desktop.getWindowArrayList().add(this);
-        desktop.getDesktopPane().getChildren().add(windowUI);
+        // desktop.getWindowArrayList().add(this);
+        // desktop.getDesktopPane().getChildren().add(windowUI);
 
-        HBox titleBar = controller.getWindowTitleBarHBox();
-        titleBar.setOnMousePressed(event -> {
-            dragDelta[0] = event.getSceneX() - windowUI.getLayoutX();
-            dragDelta[1] = event.getSceneY() - windowUI.getLayoutY();
-        });
-        titleBar.setOnMouseDragged(event -> {
-            windowUI.setLayoutX(event.getSceneX() - dragDelta[0]);
-            windowUI.setLayoutY(event.getSceneY() - dragDelta[1]);
-        });
+
+
+
+
+
+
+
 
          // Window resizing part
-        final int RESIZE_MARGIN = 20;
+
+
+
+        //make another pane thingamajig behind the actual window to handle resizing
+        final int RESIZE_MARGIN = 10;
+        wrapper = new BorderPane();
+        
+        wrapper.setPrefSize(width + RESIZE_MARGIN * 2, height + RESIZE_MARGIN * 2);
+        wrapper.setStyle("-fx-background-color: transparent;");
+        wrapper.setPickOnBounds(true);
+
+        
+        wrapper.setCenter(windowUI);
+        BorderPane.setMargin(windowUI, new javafx.geometry.Insets(RESIZE_MARGIN));
+
+        
+        wrapper.setLayoutX((desktop.getDesktopWidth() - width - RESIZE_MARGIN * 2) / 2);
+        wrapper.setLayoutY((desktop.getDesktopHeight() - height - RESIZE_MARGIN * 2) / 2);
+
+        // add to le desktoppy
+        desktop.getWindowArrayList().add(this);
+        desktop.getDesktopPane().getChildren().add(wrapper);
+
+
+
+        
+        HBox titleBar = controller.getWindowTitleBarHBox();
+        titleBar.setOnMousePressed(event -> {
+            dragDelta[0] = event.getSceneX() - wrapper.getLayoutX();
+            dragDelta[1] = event.getSceneY() - wrapper.getLayoutY();
+        });
+        titleBar.setOnMouseDragged(event -> {
+            wrapper.setLayoutX(event.getSceneX() - dragDelta[0]);
+            wrapper.setLayoutY(event.getSceneY() - dragDelta[1]);
+        });
 
         final double[] pressScene = new double[2];
        
@@ -71,61 +106,63 @@ public class Window {
         final boolean[] resizing = {false};
         final String[] resizeDir = {""};
 
-        windowUI.setOnMouseMoved(event -> {
+        wrapper.setOnMouseMoved(event -> {
             double x = event.getX();
             double y = event.getY();
-            double w = windowUI.getWidth();
-            double h = windowUI.getHeight();
+            double w = wrapper.getWidth();
+            double h = wrapper.getHeight();
 
-            // Detect which edge/corner the cursor is near
+            // the logic GPT gave me 
             if (x < RESIZE_MARGIN && y < RESIZE_MARGIN) {
-                windowUI.setCursor(javafx.scene.Cursor.NW_RESIZE);
+                wrapper.setCursor(javafx.scene.Cursor.NW_RESIZE);
                 resizeDir[0] = "NW";
             } else if (x > w - RESIZE_MARGIN && y < RESIZE_MARGIN) {
-                windowUI.setCursor(javafx.scene.Cursor.NE_RESIZE);
+                wrapper.setCursor(javafx.scene.Cursor.NE_RESIZE);
                 resizeDir[0] = "NE";
             } else if (x < RESIZE_MARGIN && y > h - RESIZE_MARGIN) {
-                windowUI.setCursor(javafx.scene.Cursor.SW_RESIZE);
+                wrapper.setCursor(javafx.scene.Cursor.SW_RESIZE);
                 resizeDir[0] = "SW";
             } else if (x > w - RESIZE_MARGIN && y > h - RESIZE_MARGIN) {
-                windowUI.setCursor(javafx.scene.Cursor.SE_RESIZE);
+                wrapper.setCursor(javafx.scene.Cursor.SE_RESIZE);
                 resizeDir[0] = "SE";
             } else if (x < RESIZE_MARGIN) {
-                windowUI.setCursor(javafx.scene.Cursor.W_RESIZE);
+                wrapper.setCursor(javafx.scene.Cursor.W_RESIZE);
                 resizeDir[0] = "W";
             } else if (x > w - RESIZE_MARGIN) {
-                windowUI.setCursor(javafx.scene.Cursor.E_RESIZE);
+                wrapper.setCursor(javafx.scene.Cursor.E_RESIZE);
                 resizeDir[0] = "E";
             } else if (y < RESIZE_MARGIN) {
-                windowUI.setCursor(javafx.scene.Cursor.N_RESIZE);
+                wrapper.setCursor(javafx.scene.Cursor.N_RESIZE);
                 resizeDir[0] = "N";
             } else if (y > h - RESIZE_MARGIN) {
-                windowUI.setCursor(javafx.scene.Cursor.S_RESIZE);
+                wrapper.setCursor(javafx.scene.Cursor.S_RESIZE);
                 resizeDir[0] = "S";
             } else {
-                windowUI.setCursor(javafx.scene.Cursor.DEFAULT);
+                wrapper.setCursor(javafx.scene.Cursor.DEFAULT);
                 resizeDir[0] = "";
             }
 
             System.out.println("Cursor at (" + x + ", " + y + "), resizeDir: " + resizeDir[0]);
         });
 
-        windowUI.setOnMousePressed(event -> {
+        wrapper.setOnMousePressed(event -> {
+            System.out.println("Clicking to resize, direction: " + resizeDir[0]);
             resizing[0] = !resizeDir[0].isEmpty();
             if (resizing[0]) {
-                // capture initial scene coords and original bounds (use pref if actual width not set)
+                System.out.println("Start resizing in direction: " + resizeDir[0]);
                 pressScene[0] = event.getSceneX();
                 pressScene[1] = event.getSceneY();
-                origBounds[0] = windowUI.getLayoutX();
-                origBounds[1] = windowUI.getLayoutY();
+                origBounds[0] = wrapper.getLayoutX();
+                origBounds[1] = wrapper.getLayoutY();
                 origBounds[2] = windowUI.getWidth() > 0 ? windowUI.getWidth() : windowUI.getPrefWidth();
                 origBounds[3] = windowUI.getHeight() > 0 ? windowUI.getHeight() : windowUI.getPrefHeight();
             }
+            event.consume();
         });
 
-        windowUI.setOnMouseDragged(event -> {
+        wrapper.setOnMouseDragged(event -> {
             if (!resizing[0]) return;
-
+            System.out.println("Resizing...");
             double dx = event.getSceneX() - pressScene[0];
             double dy = event.getSceneY() - pressScene[1];
 
@@ -164,7 +201,9 @@ public class Window {
                 }
             }
 
-
+            System.out.println("New dimensions: (" + newWidth + ", " + newHeight + ") at (" + newX + ", " + newY + ")");
+            System.out.println("wrapper bounds: " + wrapper.getBoundsInParent().toString());
+            System.out.println("windowUI bounds: " + windowUI.getBoundsInParent().toString());
             final double MIN_W = 300;
             final double MIN_H = 200;
             if (newWidth < MIN_W) {
@@ -173,28 +212,86 @@ public class Window {
                     newX += newWidth - MIN_W;
                 }
                 newWidth = MIN_W;
-            }
-            else{
                 System.out.println("max width reached");
             }
+
             if (newHeight < MIN_H) {
                 if (resizeDir[0].contains("N")) {
                     newY += newHeight - MIN_H;
                 }
                 newHeight = MIN_H;
-            }
-            else{
                 System.out.println("max height reached");
             }
 
-            windowUI.setLayoutX(newX);
-            windowUI.setLayoutY(newY);
-            windowUI.setPrefWidth(newWidth);
-            windowUI.setPrefHeight(newHeight);
+            wrapper.setLayoutX(newX);
+            wrapper.setLayoutY(newY);
+            wrapper.setPrefWidth(newWidth + RESIZE_MARGIN * 2);
+            wrapper.setPrefHeight(newHeight + RESIZE_MARGIN * 2);
+            windowUI.setPrefWidth(newWidth - RESIZE_MARGIN * 2);
+            windowUI.setPrefHeight(newHeight - RESIZE_MARGIN * 2);
+            event.consume();
         });
-
-         windowUI.setOnMouseReleased(e -> resizing[0] = false);
-
+        
+         wrapper.setOnMouseReleased(e -> resizing[0] = false);
+        
     }
 
+
+    // Winow top right thingies functions
+
+    private boolean minimized = false;
+    private boolean maximized = false;
+    private double prevX, prevY, prevWidth, prevHeight;
+
+
+    public void minimize() {
+        if (getWrapper() != null) {
+            getWrapper().setVisible(false);
+            minimized = true;
+        }
+    }
+
+    public void restore() {
+        if (getWrapper() != null) {
+            getWrapper().setVisible(true);
+            minimized = false;
+            getWrapper().toFront();
+        }
+    }
+
+    public void maximize(Pane desktopPane) {
+        if (getWrapper() == null) return;
+
+        if (!maximized) {
+            // save old dimensions n shiz to go back to
+            prevX = getWrapper().getLayoutX();
+            prevY = getWrapper().getLayoutY();
+            prevWidth = getWrapper().getPrefWidth();
+            prevHeight = getWrapper().getPrefHeight();
+
+            
+            double taskbarHeight = 35; 
+            getWrapper().setLayoutX(0);
+            getWrapper().setLayoutY(0);
+            getWrapper().setPrefWidth(desktopPane.getWidth());
+            getWrapper().setPrefHeight(desktopPane.getHeight() - taskbarHeight);
+
+            maximized = true;
+            getWrapper().toFront();
+        } else {
+            getWrapper().setLayoutX(prevX);
+            getWrapper().setLayoutY(prevY);
+            getWrapper().setPrefWidth(prevWidth);
+            getWrapper().setPrefHeight(prevHeight);
+            maximized = false;
+        }
+    }
+
+    public boolean isMaximized() {
+        return maximized;
+    }
+
+    public boolean isMinimized() {
+        return minimized;
+    }
 }

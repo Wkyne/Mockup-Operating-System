@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @Getter
 public class TerminalWindow extends Window {
-
+    
     TerminalController terminalController;
 
     FileData currentDirectory = FileDataTree.getRootDirectory();
