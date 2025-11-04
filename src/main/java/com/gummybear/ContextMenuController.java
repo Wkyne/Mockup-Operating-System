@@ -103,6 +103,7 @@ public class ContextMenuController {
     }
     @FXML
     public void refresh() {
+        System.out.println("[INFO] Refreshed Desktop");
         Desktop desktop = Desktop.getInstance();
         desktop.refresh();
     }

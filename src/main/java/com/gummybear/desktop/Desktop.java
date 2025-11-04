@@ -173,8 +173,8 @@ public class Desktop {
 
         // Reload windows
         for (Window window : windowArrayList) {
-            desktopPane.getChildren().remove(window.getWindowUI());
-            desktopPane.getChildren().add(window.getWindowUI());
+            desktopPane.getChildren().remove(window.getWrapper());
+            desktopPane.getChildren().add(window.getWrapper());
         }
     }
 

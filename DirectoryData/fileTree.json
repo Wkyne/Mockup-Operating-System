@@ -19,6 +19,14 @@
           "text": "create file file1\ncreate file file2\ncreate file file3\ncreate file file4\ncreate file file5\ncreate file file6\ncreate file file7\ncreate file file8\ncreate file file9\ncreate file file10",
           "path": "root/desktop/file.script",
           "contents": []
+        },
+        {
+          "id": 0,
+          "name": "filetest",
+          "type": "file",
+          "text": "",
+          "path": "root/desktop/filetest",
+          "contents": []
         }
       ]
     },
@@ -49,7 +57,7 @@
           "id": 0,
           "name": "memo",
           "type": "file",
-          "text": "",
+          "text": "asdasd",
           "path": "root/downloads/memo",
           "contents": []
         },
@@ -437,6 +445,14 @@
               "text": "",
               "path": "root/documents/work/report-december-2025",
               "contents": []
+            },
+            {
+              "id": 0,
+              "name": "renamefile",
+              "type": "file",
+              "text": "",
+              "path": "root/documents/work/renamefile",
+              "contents": []
             }
           ]
         },
@@ -536,6 +552,14 @@
               "contents": []
             }
           ]
+        },
+        {
+          "id": 0,
+          "name": "foldertest",
+          "type": "folder",
+          "text": "",
+          "path": "root/documents/foldertest",
+          "contents": []
         }
       ]
     }
