@@ -19,14 +19,6 @@
           "text": "create file file1\ncreate file file2\ncreate file file3\ncreate file file4\ncreate file file5\ncreate file file6\ncreate file file7\ncreate file file8\ncreate file file9\ncreate file file10",
           "path": "root/desktop/file.script",
           "contents": []
-        },
-        {
-          "id": 0,
-          "name": "filetest",
-          "type": "file",
-          "text": "",
-          "path": "root/desktop/filetest",
-          "contents": []
         }
       ]
     },
@@ -81,7 +73,7 @@
           "id": 0,
           "name": "data",
           "type": "file",
-          "text": "",
+          "text": "data",
           "path": "root/downloads/data",
           "contents": []
         },
@@ -483,7 +475,7 @@
               "id": 0,
               "name": "assignment3",
               "type": "file",
-              "text": "",
+              "text": "hello",
               "path": "root/documents/assignment/assignment3",
               "contents": []
             },
@@ -549,6 +541,14 @@
               "type": "folder",
               "text": "",
               "path": "root/documents/assignment/pdf",
+              "contents": []
+            },
+            {
+              "id": 0,
+              "name": "file",
+              "type": "folder",
+              "text": "",
+              "path": "root/documents/assignment/file",
               "contents": []
             }
           ]
